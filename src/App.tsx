@@ -15,7 +15,12 @@ import { User, DashboardStats, Notification } from './types';
 export default function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [user, setUser] = useState<User | null>(null);
-  const [activeTab, setActiveTab] = useState<string>('dashboard');
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('activeTab') || 'dashboard';
+    }
+    return 'dashboard';
+  });
   const [companyName, setCompanyName] = useState<string>('EcoSphere Corp');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -105,10 +110,12 @@ export default function App() {
     setToken(newToken);
     setUser(loggedUser);
     setActiveTab('dashboard');
+    localStorage.setItem('activeTab', 'dashboard');
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('activeTab');
     setToken(null);
     setUser(null);
     setStats(null);
@@ -178,7 +185,7 @@ export default function App() {
         <Sidebar
           user={user}
           activeTab={activeTab}
-          setActiveTab={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }}
+          setActiveTab={(tab) => { setActiveTab(tab); localStorage.setItem('activeTab', tab); setMobileMenuOpen(false); }}
           onLogout={handleLogout}
           companyName={companyName}
           notificationsCount={unreadCount}
@@ -209,7 +216,7 @@ export default function App() {
               <Sidebar
                 user={user}
                 activeTab={activeTab}
-                setActiveTab={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }}
+                setActiveTab={(tab) => { setActiveTab(tab); localStorage.setItem('activeTab', tab); setMobileMenuOpen(false); }}
                 onLogout={handleLogout}
                 companyName={companyName}
                 notificationsCount={unreadCount}

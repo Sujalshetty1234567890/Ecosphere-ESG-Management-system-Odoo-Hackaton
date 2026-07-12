@@ -72,8 +72,8 @@
       "name": "asdj",
       "role": "employee",
       "departmentId": "dept-ops",
-      "xp": 0,
-      "balancePoints": 0,
+      "xp": 11000,
+      "balancePoints": 700,
       "passwordHash": "9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0",
       "createdAt": "2026-07-12T08:47:55.889Z"
     }
@@ -123,6 +123,15 @@
       "headCount": 300,
       "targetCarbonLimit": 1500,
       "createdAt": "2026-07-12T07:00:38.314Z"
+    },
+    {
+      "id": "dept-1783853555796",
+      "name": "sa",
+      "code": "222",
+      "managerId": null,
+      "headCount": 20,
+      "targetCarbonLimit": 500,
+      "createdAt": "2026-07-12T10:52:35.796Z"
     }
   ],
   "categories": [
@@ -801,7 +810,7 @@
       "recordedById": "user-1783846075889",
       "description": "sad sad",
       "proofUrl": "https://www.oracle.com/mysql/free/",
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": "tx-1783852705178",
@@ -814,7 +823,7 @@
       "recordedById": "user-1783846075889",
       "description": "wswi",
       "proofUrl": "https://www.oracle.com/mysql/free/",
-      "status": "pending"
+      "status": "rejected"
     },
     {
       "id": "tx-1783852728134",
@@ -827,6 +836,32 @@
       "recordedById": "user-1783846075889",
       "description": "yg",
       "proofUrl": "https://www.oracle.com/mysql/free/",
+      "status": "approved"
+    },
+    {
+      "id": "tx-1783853234420",
+      "date": "2026-07-12",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 12221,
+      "calculatedEmissions": 5.133,
+      "recordedById": "user-1783846075889",
+      "description": "dssdfd",
+      "proofUrl": "https://www.oracle.com/mysql/free/",
+      "status": "approved"
+    },
+    {
+      "id": "tx-1783854030974",
+      "date": "2026-07-12",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 2345,
+      "calculatedEmissions": 0.985,
+      "recordedById": "user-1783846075889",
+      "description": "sd",
+      "proofUrl": "",
       "status": "pending"
     }
   ],
@@ -932,6 +967,17 @@
       "status": "approved",
       "xpEarned": 200,
       "pointsEarned": 100
+    },
+    {
+      "id": "part-1783854458602",
+      "userId": "user-1783846075889",
+      "csrActivityId": "csr-1",
+      "participationDate": "2026-07-12T11:07:38.602Z",
+      "hoursLogged": 8,
+      "proofUrl": "",
+      "status": "approved",
+      "xpEarned": 300,
+      "pointsEarned": 150
     }
   ],
   "challenges": [
@@ -985,6 +1031,22 @@
       "joinedDate": "2026-07-12T07:00:38.314Z",
       "progress": 100,
       "status": "completed"
+    },
+    {
+      "id": "cp-1783854552818",
+      "userId": "user-1783846075889",
+      "challengeId": "chal-1",
+      "joinedDate": "2026-07-12T11:09:12.818Z",
+      "progress": 100,
+      "status": "under_review"
+    },
+    {
+      "id": "cp-1783854639911",
+      "userId": "user-admin",
+      "challengeId": "chal-1",
+      "joinedDate": "2026-07-12T11:10:39.911Z",
+      "progress": 100,
+      "status": "under_review"
     }
   ],
   "policies": [
@@ -1164,6 +1226,12 @@
       "userId": "user-employee",
       "badgeId": "bd-compliance-hero",
       "unlockedAt": "2026-07-12T07:00:38.314Z"
+    },
+    {
+      "id": "ub-1783854484870-bd-social-star",
+      "userId": "user-1783846075889",
+      "badgeId": "bd-social-star",
+      "unlockedAt": "2026-07-12T11:08:04.870Z"
     }
   ],
   "rewards": [
@@ -1188,7 +1256,7 @@
       "title": "Double Wall Vacuum Thermos (750ml)",
       "description": "Premium insulated matte-black bottle keeping water ice-cold for 24 hours, eradicating disposable plastics.",
       "costPoints": 800,
-      "stock": 12,
+      "stock": 11,
       "active": true
     },
     {
@@ -1196,7 +1264,7 @@
       "title": "Floating Carbon-Credit Floating Day off",
       "description": "Trade your high-earned community points for one paid floating relaxation/wellbeing day.",
       "costPoints": 2000,
-      "stock": 5,
+      "stock": 4,
       "active": true
     }
   ],
@@ -1227,6 +1295,20 @@
       "userId": "user-employee",
       "rewardId": "rew-2",
       "redeemedAt": "2026-07-12T07:13:51.484Z",
+      "status": "pending"
+    },
+    {
+      "id": "rr-1783854791258",
+      "userId": "user-1783846075889",
+      "rewardId": "rew-4",
+      "redeemedAt": "2026-07-12T11:13:11.258Z",
+      "status": "pending"
+    },
+    {
+      "id": "rr-1783854799096",
+      "userId": "user-1783846075889",
+      "rewardId": "rew-3",
+      "redeemedAt": "2026-07-12T11:13:19.096Z",
       "status": "pending"
     }
   ],
@@ -1275,17 +1357,71 @@
       "type": "reward",
       "read": true,
       "createdAt": "2026-07-12T07:13:51.484Z"
+    },
+    {
+      "id": "not-1783853768215-972",
+      "userId": "user-1783846075889",
+      "title": "Carbon Log Approved!",
+      "message": "Your emission log (5.133 Tons CO2e) has been approved. You earned 150 XP and 50 points.",
+      "type": "system",
+      "read": true,
+      "createdAt": "2026-07-12T10:56:08.215Z"
+    },
+    {
+      "id": "not-1783853774891-547",
+      "userId": "user-1783846075889",
+      "title": "Carbon Log Approved!",
+      "message": "Your emission log (331.706 Tons CO2e) has been approved. You earned 150 XP and 50 points.",
+      "type": "system",
+      "read": true,
+      "createdAt": "2026-07-12T10:56:14.891Z"
+    },
+    {
+      "id": "not-1783854484868-792",
+      "userId": "user-1783846075889",
+      "title": "CSR Volunteering Approved!",
+      "message": "Your CSR entry for 8 hours was approved. You received 300 XP and 150 points.",
+      "type": "challenge",
+      "read": true,
+      "createdAt": "2026-07-12T11:08:04.868Z"
+    },
+    {
+      "id": "not-1783854484870-205",
+      "userId": "user-1783846075889",
+      "title": "🏆 Badge Unlocked: Social Star!",
+      "message": "Superb! You unlocked the \"Social Star\" badge: Volunteered for 10 or more approved hours of corporate social responsibility.. Earned +500 XP & +100 Rewards points!",
+      "type": "badge",
+      "read": true,
+      "createdAt": "2026-07-12T11:08:04.870Z"
+    },
+    {
+      "id": "not-1783854791258-191",
+      "userId": "user-1783846075889",
+      "title": "Reward Redeemed successfully!",
+      "message": "You redeemed \"Floating Carbon-Credit Floating Day off\" for 2000 points. Status: Pending Delivery.",
+      "type": "reward",
+      "read": false,
+      "createdAt": "2026-07-12T11:13:11.258Z"
+    },
+    {
+      "id": "not-1783854799096-534",
+      "userId": "user-1783846075889",
+      "title": "Reward Redeemed successfully!",
+      "message": "You redeemed \"Double Wall Vacuum Thermos (750ml)\" for 800 points. Status: Pending Delivery.",
+      "type": "reward",
+      "read": false,
+      "createdAt": "2026-07-12T11:13:19.096Z"
     }
   ],
   "departmentScores": [
     {
       "id": "ds-dept-ops",
       "departmentId": "dept-ops",
-      "environmentalScore": 83,
-      "socialScore": 24,
+      "environmentalScore": 81,
+      "socialScore": 44,
       "governanceScore": 44,
-      "overallScore": 54,
-      "lastUpdated": "2026-07-12T10:38:48.134Z"
+      "overallScore": 59,
+      "lastUpdated": "2026-07-12T11:12:49.326Z"
     },
     {
       "id": "ds-dept-log",
@@ -1294,7 +1430,7 @@
       "socialScore": 0,
       "governanceScore": 23,
       "overallScore": 40,
-      "lastUpdated": "2026-07-12T10:38:48.134Z"
+      "lastUpdated": "2026-07-12T11:12:49.326Z"
     },
     {
       "id": "ds-dept-it",
@@ -1303,7 +1439,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 90,
-      "lastUpdated": "2026-07-12T10:38:48.134Z"
+      "lastUpdated": "2026-07-12T11:12:49.326Z"
     },
     {
       "id": "ds-dept-hr",
@@ -1312,7 +1448,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 86,
-      "lastUpdated": "2026-07-12T10:38:48.134Z"
+      "lastUpdated": "2026-07-12T11:12:49.326Z"
     },
     {
       "id": "ds-dept-mfg",
@@ -1321,7 +1457,16 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 88,
-      "lastUpdated": "2026-07-12T10:38:48.134Z"
+      "lastUpdated": "2026-07-12T11:12:49.326Z"
+    },
+    {
+      "id": "ds-dept-1783853555796",
+      "departmentId": "dept-1783853555796",
+      "environmentalScore": 92,
+      "socialScore": 75,
+      "governanceScore": 100,
+      "overallScore": 89,
+      "lastUpdated": "2026-07-12T11:12:49.326Z"
     }
   ],
   "settings": {
