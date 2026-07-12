@@ -1192,7 +1192,7 @@
       "socialScore": 36,
       "governanceScore": 67,
       "overallScore": 64,
-      "lastUpdated": "2026-07-12T09:10:16.891Z"
+      "lastUpdated": "2026-07-12T09:30:13.204Z"
     },
     {
       "id": "ds-dept-log",
@@ -1201,7 +1201,7 @@
       "socialScore": 0,
       "governanceScore": 23,
       "overallScore": 40,
-      "lastUpdated": "2026-07-12T09:10:16.891Z"
+      "lastUpdated": "2026-07-12T09:30:13.204Z"
     },
     {
       "id": "ds-dept-it",
@@ -1210,7 +1210,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 90,
-      "lastUpdated": "2026-07-12T09:10:16.891Z"
+      "lastUpdated": "2026-07-12T09:30:13.204Z"
     },
     {
       "id": "ds-dept-hr",
@@ -1219,7 +1219,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 86,
-      "lastUpdated": "2026-07-12T09:10:16.891Z"
+      "lastUpdated": "2026-07-12T09:30:13.204Z"
     },
     {
       "id": "ds-dept-mfg",
@@ -1228,7 +1228,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 88,
-      "lastUpdated": "2026-07-12T09:10:16.891Z"
+      "lastUpdated": "2026-07-12T09:30:13.204Z"
     }
   ],
   "settings": {

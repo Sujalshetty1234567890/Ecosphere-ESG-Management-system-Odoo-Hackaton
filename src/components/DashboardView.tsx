@@ -69,8 +69,7 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
             )}
           </button>
           
-          <div className="text-xs text-slate-500 font-mono bg-white border border-slate-200 rounded-none px-4 py-2.5 shadow-sm font-bold uppercase tracking-wider">
-          </div>
+          
         </div>
       </div>
 
@@ -187,7 +186,7 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
             <HeartHandshake className="h-4 w-4 text-indigo-500" />
           </div>
           <div className="text-xl lg:text-2xl font-bold mt-2 font-mono text-teal-600">{stats.csrParticipationRate}%</div>
-          <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1">Target: &gt;75% coverage</div>
+          <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider mt-1">Target: &gt;75% coverage</div>
         </div>
         <div className="bg-white border border-slate-200 p-5 rounded-none shadow-sm text-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
@@ -218,40 +217,55 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
             </select>
           </div>
           
-          {/* Stabilized chart container with no sub-pixel layout loops */}
-          <div className="h-64 sm:h-72 w-full overflow-x-auto">
-            <div className="min-w-[450px] h-full">
-              <ResponsiveContainer width="100%" height="100%" debounce={1}>
-                <AreaChart data={emissionsHistoryData} margin={{ top: 10, right: 10, left: -5, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorScope1" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.15}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                    </linearGradient>
-                    <linearGradient id="colorScope2" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.15}/>
-                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                    </linearGradient>
-                    <linearGradient id="colorScope3" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#ec4899" stopOpacity={0.15}/>
-                      <stop offset="95%" stopColor="#ec4899" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                  <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                  <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '0px', color: '#0f172a' }}
-                    cursor={{ stroke: '#cbd5e1', strokeWidth: 1 }}
-                  />
-                  <Legend iconSize={8} wrapperStyle={{ fontSize: 11, paddingTop: 10, fontWeight: 'bold', textTransform: 'uppercase' }} />
-                  <Area type="monotone" dataKey="Scope1" name="Scope 1 Direct" stroke="#10b981" strokeWidth={2} fillOpacity={1} fill="url(#colorScope1)" activeDot={{ r: 5 }} />
-                  <Area type="monotone" dataKey="Scope2" name="Scope 2 Purchased" stroke="#3b82f6" strokeWidth={2} fillOpacity={1} fill="url(#colorScope2)" activeDot={{ r: 5 }} />
-                  <Area type="monotone" dataKey="Scope3" name="Scope 3 Travel/Waste" stroke="#ec4899" strokeWidth={2} fillOpacity={1} fill="url(#colorScope3)" activeDot={{ r: 5 }} />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+         {/* Increased height classes to stretch the chart vertically */}
+<div className="h-80 sm:h-[400px] w-full relative">
+  <ResponsiveContainer width="100%" height="100%">
+    <AreaChart 
+      data={emissionsHistoryData} 
+      margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+    >
+      <defs>
+        <linearGradient id="colorScope1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#10b981" stopOpacity={0.15}/>
+          <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+        </linearGradient>
+        <linearGradient id="colorScope2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.15}/>
+          <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+        </linearGradient>
+        <linearGradient id="colorScope3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#ec4899" stopOpacity={0.15}/>
+          <stop offset="95%" stopColor="#ec4899" stopOpacity={0}/>
+        </linearGradient>
+      </defs>
+      <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+      <XAxis 
+        dataKey="month" 
+        stroke="#94a3b8" 
+        fontSize={11} 
+        tickLine={false} 
+        dy={10} 
+      />
+      <YAxis 
+        stroke="#94a3b8" 
+        fontSize={11} 
+        tickLine={false} 
+        dx={-5} 
+      />
+      <Tooltip 
+        contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '0px', color: '#0f172a' }}
+        animationDuration={0}
+      />
+      <Legend 
+        iconSize={8} 
+        wrapperStyle={{ fontSize: 11, paddingTop: 25, fontWeight: 'bold', textTransform: 'uppercase' }} // Slightly more padding top for balance
+      />
+      <Area type="monotone" dataKey="Scope1" name="Scope 1 Direct" stroke="#10b981" strokeWidth={2} fillOpacity={1} fill="url(#colorScope1)" activeDot={false} />
+      <Area type="monotone" dataKey="Scope2" name="Scope 2 Purchased" stroke="#3b82f6" strokeWidth={2} fillOpacity={1} fill="url(#colorScope2)" activeDot={false} />
+      <Area type="monotone" dataKey="Scope3" name="Scope 3 Travel/Waste" stroke="#ec4899" strokeWidth={2} fillOpacity={1} fill="url(#colorScope3)" activeDot={false} />
+    </AreaChart>
+  </ResponsiveContainer>
+</div>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-none p-6 flex flex-col justify-between shadow-sm text-slate-900">
@@ -283,14 +297,14 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
               className="text-emerald-600 hover:text-emerald-500 text-xs font-bold inline-flex items-center cursor-pointer uppercase tracking-wider"
               onClick={onRefreshData}
             >
-              <span>Refresh Metric Matrix</span>
+              <span>Refresh ESG Metric Matrix</span>
               <ChevronRight className="h-3.5 w-3.5 ml-0.5" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Directory Section */}
+      {/* Department Score Directory */}
       <div className="bg-white border border-slate-200 rounded-none p-6 shadow-sm text-slate-900">
         <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Department ESG Performance Directory</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
@@ -324,7 +338,7 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
             <div className="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50 text-slate-900">
               <div className="flex items-center space-x-2.5">
                 <Bell className="h-5 w-5 text-emerald-600" />
-                <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight">Security Alerts</h3>
+                <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight">Security Alerts & Badges</h3>
               </div>
               <button onClick={() => setShowNotificationsModal(false)} className="text-slate-500 hover:text-slate-900 text-xs font-bold uppercase tracking-wider">Close</button>
             </div>
@@ -339,7 +353,7 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
               {notifications.length === 0 ? (
                 <div className="h-64 flex flex-col items-center justify-center text-center text-slate-400 space-y-2">
                   <Bell className="h-8 w-8 text-slate-300" />
-                  <p className="text-sm font-bold uppercase tracking-wider text-slate-500">Inbox silent</p>
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-500">Inbox completely silent</p>
                 </div>
               ) : (
                 notifications.map((notif) => (
