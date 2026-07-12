@@ -65,9 +65,8 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-light text-slate-900 uppercase tracking-tight">EcoSphere <span className="font-bold">Dashboard</span></h1>
-          <p className="text-xs text-slate-400 font-semibold tracking-wide uppercase mt-1">Enterprise-wide scoring & active initiatives • LIVE</p>
+          <p className="text-xs text-slate-400 font-semibold tracking-wide uppercase mt-1">Enterprise-wide scoring & active initiatives &bull; LIVE</p>
         </div>
-
         <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
           <button
             onClick={() => setShowNotificationsModal(true)}
@@ -80,9 +79,9 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
             )}
           </button>
           
-          <div className="text-xs text-slate-500 font-mono bg-white border border-slate-200 rounded-none px-4 py-2.5 shadow-sm font-bold uppercase tracking-wider">
+          {/* <div className="text-xs text-slate-500 font-mono bg-white border border-slate-200 rounded-none px-4 py-2.5 shadow-sm font-bold uppercase tracking-wider">
             UTC: 2026-07-11
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -103,6 +102,7 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
               <span>Ranked Top 12% in Sector</span>
             </div>
           </div>
+
           <div className="mt-8">
             <div className="text-xs text-slate-500 flex justify-between mb-1.5">
               <span className="font-medium">Organization Target Index</span>
@@ -194,7 +194,6 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
           <div className="text-2xl font-bold mt-2 font-mono text-slate-900">{stats.orgCarbonEmissions} <span className="text-xs text-slate-500 font-sans font-medium">Tons</span></div>
           <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1">Limit: {stats.orgCarbonTarget} Tons max</div>
         </div>
-
         <div className="bg-white border border-slate-200 p-5 rounded-none shadow-sm text-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
             <span>GOALS FULFILLMENT</span>
@@ -203,7 +202,6 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
           <div className="text-2xl font-bold mt-2 font-mono text-slate-900">{(stats.activeGoalsCount * 3) || 3} <span className="text-xs text-slate-500 font-sans font-medium">Active</span></div>
           <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1">1,400+ hours effort</div>
         </div>
-
         <div className="bg-white border border-slate-200 p-5 rounded-none shadow-sm text-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
             <span>CSR PARTICIPANTS RATE</span>
@@ -212,7 +210,6 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
           <div className="text-2xl font-bold mt-2 font-mono text-slate-900">{stats.csrParticipationRate}%</div>
           <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1">Target: &gt;75% coverage</div>
         </div>
-
         <div className="bg-white border border-slate-200 p-5 rounded-none shadow-sm text-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
             <span>COMPLIANCE ALERTS</span>
@@ -242,7 +239,6 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
               <option value="log">Logistics Only</option>
             </select>
           </div>
-
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={emissionsHistoryData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -277,6 +273,7 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
         <div className="bg-white border border-slate-200 rounded-none p-6 flex flex-col justify-between shadow-sm text-slate-900">
           <div>
             <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Sustainable Action Feed</h3>
+            
             <div className="space-y-5">
               {recentActivities.map((act) => {
                 const IconComp = act.icon;
@@ -298,7 +295,7 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
               })}
             </div>
           </div>
-
+          
           <div className="pt-6 border-t border-slate-100 mt-6 text-center">
             <button 
               className="text-emerald-600 hover:text-emerald-500 text-xs font-bold inline-flex items-center cursor-pointer uppercase tracking-wider"
@@ -314,10 +311,10 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
       {/* Top Performing Departments */}
       <div className="bg-white border border-slate-200 rounded-none p-6 shadow-sm text-slate-900">
         <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Department ESG Performance Directory</h3>
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stats.departmentScores && stats.departmentScores.map((dept, idx) => (
             <div key={dept.departmentId} className="bg-slate-50 border border-slate-100 rounded-none p-5 relative overflow-hidden">
-              <span className="absolute top-4 right-4 text-xs font-mono font-bold text-slate-300">#0{idx + 1}</span>
               <h4 className="font-display font-bold text-md text-slate-900 uppercase tracking-tight">{dept.departmentName}</h4>
               <div className="mt-4 flex items-baseline space-x-1.5">
                 <span className={`text-4xl font-display font-bold ${getScoreColor(dept.score)}`}>{dept.score}</span>
@@ -351,20 +348,20 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
                 <Bell className="h-5 w-5 text-emerald-600" />
                 <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight">Security Alerts & Badges</h3>
               </div>
-              <button
+              <button 
                 onClick={() => setShowNotificationsModal(false)}
                 className="text-slate-500 hover:text-slate-900 text-xs font-bold uppercase tracking-wider"
                 id="btn-notifications-close"
               >
-                ✕ Close
+                Close
               </button>
             </div>
-
+            
             <div className="flex-1 overflow-y-auto p-5 space-y-4">
               {unreadCount > 0 && (
                 <div className="flex justify-between items-center pb-2 border-b border-slate-100">
                   <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">{unreadCount} unread system logs</span>
-                  <button
+                  <button 
                     onClick={onMarkNotificationsRead}
                     className="text-xs text-emerald-600 hover:text-emerald-500 font-bold flex items-center uppercase tracking-wider"
                     id="btn-mark-all-read"

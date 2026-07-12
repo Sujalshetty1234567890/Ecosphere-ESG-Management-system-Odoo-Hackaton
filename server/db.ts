@@ -140,7 +140,7 @@ const getInitialData = (): Schema => {
 
   // Environmental goals
   const environmentalGoals: EnvironmentalGoal[] = [
-    { id: 'goal-1', title: 'Reduce Grid Electricity by 15%', description: 'Achieve a 15% year-over-year reduction in grid energy reliance by onboarding solar options.', targetValue: 350, currentValue: 2, unit: 'Tons CO2e', categoryId: 'cat-scope2', departmentId: 'dept-ops', startDate: now.toISOString(), endDate: new Date(now.getFullYear(), 11, 31).toISOString(), status: 'active' },
+    { id: 'goal-1', title: 'Reduce Grid Electricity by 15%', description: 'Achieve a 15% year-over-year reduction in grid energy reliance by onboarding solar options.', targetValue: 350, currentValue: 385, unit: 'Tons CO2e', categoryId: 'cat-scope2', departmentId: 'dept-ops', startDate: now.toISOString(), endDate: new Date(now.getFullYear(), 11, 31).toISOString(), status: 'active' },
     { id: 'goal-2', title: 'Eco-Friendly Logistics Fleet', description: 'Transition regional delivery vehicles to zero/low emission hybrid engines.', targetValue: 400, currentValue: 412, unit: 'Tons CO2e', categoryId: 'cat-scope1', departmentId: 'dept-log', startDate: now.toISOString(), endDate: new Date(now.getFullYear(), 11, 31).toISOString(), status: 'active' },
     { id: 'goal-3', title: 'Zero Waste to Landfill Initiative', description: 'Recycle at least 95% of administrative and assembly line paper/plastic waste.', targetValue: 10, currentValue: 8, unit: 'Tons Waste', categoryId: 'cat-scope3', departmentId: 'dept-it', startDate: now.toISOString(), endDate: new Date(now.getFullYear(), 5, 30).toISOString(), status: 'achieved' }
   ];

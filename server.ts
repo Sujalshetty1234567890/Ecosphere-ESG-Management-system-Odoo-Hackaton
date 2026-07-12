@@ -804,6 +804,11 @@ async function startServer() {
     res.json({ success: true });
   });
 
+  app.post('/api/notifications/read-all', authMiddleware, (req: AuthenticatedRequest, res: Response) => {
+    db.markAllNotificationsRead(req.user!.id);
+    res.json({ success: true });
+  });
+
   // Global ESG Scores
   app.get('/api/stats', authMiddleware, (req: Request, res: Response) => {
     res.json(db.getOrganizationESGStats());
@@ -863,11 +868,14 @@ async function startServer() {
         contents: prompt
       });
 
-      res.json({ summary: response.text || "Failed to generate report text." });
+      const reportText = response.text || "Failed to generate report text.";
+      res.json({ summary: reportText, report: reportText });
     } catch (err: any) {
       console.error("Gemini report generation failed:", err);
+      const fallbackReport = `### Dynamic ESG Analysis Summary\n\n*AI feedback represents standard sector predictions in compliance with current operations:*\n\n- **Decarbonization Vector**: Direct Scope 1 petrol consumption has hit an elevated limit in Logistics. Strategic fleet transitions are recommended.\n- **Workplace Engagement**: CSR volunteering events show standard active rosters (+${db.getOrganizationESGStats().csrParticipationRate}% coverage).\n- **Compliance Safeguards**: Resolve overdue compliance records in Logistics fleet audits immediately to elevate the governance index.`;
       res.json({ 
-        summary: `### Dynamic ESG Analysis Summary\n\n*AI feedback represents standard sector predictions in compliance with current operations:*\n\n- **Decarbonization Vector**: Direct Scope 1 petrol consumption has hit an elevated limit in Logistics. Strategic fleet transitions are recommended.\n- **Workplace Engagement**: CSR volunteering events show standard active rosters (+${db.getOrganizationESGStats().csrParticipationRate}% coverage).\n- **Compliance Safeguards**: Resolve overdue compliance records in Logistics fleet audits immediately to elevate the governance index.`
+        summary: fallbackReport,
+        report: fallbackReport
       });
     }
   });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Trophy, Sparkles, Award, ShoppingBag, ListChecks, CheckCircle, 
-  ChevronRight, RefreshCw, AlertCircle, CheckCircle2, User as UserIcon, HelpCircle
+  ChevronRight, RefreshCw, AlertCircle, CheckCircle2, User as UserIcon, HelpCircle 
 } from 'lucide-react';
 import { Challenge, ChallengeParticipation, Badge, Reward, RewardRedemption, LeaderboardEntry, User } from '../types';
 
@@ -23,7 +23,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
 
   // Sliders for active challenge progress
   const [challengeProgresses, setChallengeProgresses] = useState<{ [key: string]: number }>({});
-  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -38,7 +37,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
     try {
       const token = localStorage.getItem('token');
       const headers = { 'Authorization': `Bearer ${token}` };
-
       const [chalRes, badgesRes, rewardsRes, leaderRes, userBadgesRes, redRes] = await Promise.all([
         fetch('/api/challenges', { headers }),
         fetch('/api/badges', { headers }),
@@ -101,7 +99,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
     setError('');
     setSuccess('');
     const progress = challengeProgresses[challengeId] || 0;
-
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`/api/challenges/${challengeId}/progress`, {
@@ -114,7 +111,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
-
       if (progress === 100) {
         setSuccess('Outstanding! Challenge progress saved. Submission is now pending Admin validation.');
       } else {
@@ -127,7 +123,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
         const meData = await meResponse.json();
         onUpdateUserLocal(meData); // update header and sidebar instantly!
       }
-
       fetchGamificationData();
       onRefreshStats();
     } catch (err: any) {
@@ -138,7 +133,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
   const handleRedeemReward = async (rewardId: string) => {
     setError('');
     setSuccess('');
-
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`/api/rewards/${rewardId}/redeem`, {
@@ -147,7 +141,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
-
       setSuccess('Redemption order created successfully! Please visit standard collection zones.');
       
       // Update local points
@@ -156,7 +149,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
         const meData = await meResponse.json();
         onUpdateUserLocal(meData);
       }
-
       fetchGamificationData();
     } catch (err: any) {
       setError(err.message || 'Insufficient points or out of stock');
@@ -170,7 +162,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
           <h1 className="text-3xl font-light text-slate-900 uppercase tracking-tight">Gamification & <span className="font-bold">Rewards</span></h1>
           <p className="text-xs text-slate-400 font-semibold tracking-wide uppercase mt-1">Unlock badges, participate in green challenges, redeem eco-sustainable rewards, and top leaderboards</p>
         </div>
-
         <div className="bg-slate-900 border border-slate-900 px-4 py-2 rounded-none flex items-center space-x-3 text-sm text-white shadow-sm">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Available Points Balance:</span>
           <span className="font-mono font-bold text-teal-400 text-base">{user.balancePoints} PTS</span>
@@ -237,18 +228,24 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
             const isJoined = joinedChallenges.some(p => p.challengeId === chal.id);
             const joinedRecord = joinedChallenges.find(p => p.challengeId === chal.id);
             const sliderVal = challengeProgresses[chal.id] !== undefined ? challengeProgresses[chal.id] : 0;
-
             return (
-              <div key={chal.id} className="bg-white border border-slate-200 rounded-none p-6 flex flex-col justify-between h-80 relative overflow-hidden shadow-sm text-slate-900">
-                <div className="absolute top-0 right-0 p-3 bg-slate-900 text-[9px] uppercase font-bold text-emerald-400 font-mono tracking-wider">
-                  {chal.category} Class
-                </div>
-
-                <div>
-                  <h4 className="font-display font-bold text-md text-slate-900 pr-20 leading-tight uppercase tracking-tight">{chal.title}</h4>
-                  <p className="text-xs text-slate-500 mt-2.5 line-clamp-3 leading-relaxed font-medium">{chal.description}</p>
+              <div key={chal.id} className="bg-white border border-slate-200 rounded-none p-6 flex flex-col justify-between h-85 shadow-sm text-slate-900">
+                <div className="space-y-4">
+                  {/* Flow Header Layout instead of Absolute Overlap Positioning */}
+                  <div className="flex justify-between items-start gap-4">
+                    <h4 className="font-display font-bold text-base text-slate-900 leading-tight uppercase tracking-tight flex-1">
+                      {chal.title}
+                    </h4>
+                    <span className="shrink-0 px-2 py-1 bg-slate-900 text-[9px] uppercase font-bold text-emerald-400 font-mono tracking-wider whitespace-nowrap">
+                      {chal.category} Class
+                    </span>
+                  </div>
                   
-                  <div className="mt-4 flex items-center space-x-3.5">
+                  <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed font-medium">
+                    {chal.description}
+                  </p>
+                  
+                  <div className="flex items-center space-x-3">
                     <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-none font-mono uppercase tracking-wider">
                       +{chal.xpReward} XP
                     </span>
@@ -318,11 +315,9 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {badges.map((badge) => {
               const isUnlocked = unlockedBadges.some(ub => ub.badgeId === badge.id);
-              const unlockRecord = unlockedBadges.find(ub => ub.badgeId === badge.id);
-
               return (
                 <div 
-                  key={badge.id} 
+                  key={badge.id}
                   className={`border rounded-none p-6 flex flex-col items-center justify-between text-center transition-all h-64 ${
                     isUnlocked 
                       ? 'bg-slate-50 border-amber-300 shadow-sm' 
@@ -336,16 +331,14 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
                   }`}>
                     <Award className="h-8 w-8" />
                   </div>
-
                   <div className="space-y-1.5 mt-4">
                     <h4 className="text-sm font-bold text-slate-900 leading-tight uppercase tracking-tight">{badge.title}</h4>
                     <p className="text-[11px] text-slate-500 leading-normal line-clamp-3 font-medium">{badge.description}</p>
                   </div>
-
                   <div className="mt-4 w-full">
                     {isUnlocked ? (
                       <div className="text-[9px] text-amber-700 font-mono font-bold uppercase tracking-wider bg-amber-50 px-2 py-1 rounded-none border border-amber-200">
-                        🏆 Unlocked YTD
+                        Unlocked YTD
                       </div>
                     ) : (
                       <div className="text-[9px] text-slate-400 font-mono font-bold uppercase tracking-wider">
@@ -375,11 +368,9 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
                       </span>
                       <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-mono">Stock: {reward.stock} left</span>
                     </div>
-
                     <h4 className="font-display font-bold text-sm text-slate-900 uppercase tracking-tight">{reward.title}</h4>
                     <p className="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed font-medium">{reward.description}</p>
                   </div>
-
                   <div className="mt-5 pt-4 border-t border-slate-200">
                     <button
                       onClick={() => handleRedeemReward(reward.id)}
@@ -473,7 +464,7 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
                       </div>
                     </td>
                     <td className="py-3.5 text-slate-500 uppercase tracking-tight font-semibold text-[11px]">{entry.departmentName}</td>
-                    <td className="py-3.5 text-center font-semibold font-mono text-amber-700 uppercase tracking-wide">🏆 {entry.badgesCount} badges</td>
+                    <td className="py-3.5 text-center font-semibold font-mono text-amber-700 uppercase tracking-wide">{entry.badgesCount} badges</td>
                     <td className="py-3.5 text-right pr-3 font-mono font-bold text-emerald-700">{entry.xp} XP</td>
                   </tr>
                 ))}
