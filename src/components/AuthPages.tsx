@@ -19,7 +19,6 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
   const [resetEmail, setResetEmail] = useState('');
   const [resetSuccessMsg, setResetSuccessMsg] = useState('');
   const [newPassword, setNewPassword] = useState('');
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -31,7 +30,6 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
     }
     setLoading(true);
     setError('');
-
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -58,7 +56,6 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
     }
     setLoading(true);
     setError('');
-
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
@@ -92,7 +89,6 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
     setLoading(true);
     setError('');
     setResetSuccessMsg('');
-
     try {
       const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
@@ -121,7 +117,6 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
     }
     setLoading(true);
     setError('');
-
     try {
       const response = await fetch('/api/auth/reset-password', {
         method: 'POST',
@@ -145,21 +140,21 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
   };
 
   return (
-    <div className="min-h-screen flex items-stretch bg-[#0b0f19] text-gray-100" id="auth-container">
-      {/* Visual panel (Desktop Only) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-radial from-[#0d1e36] to-[#0b0f19] relative items-center justify-center p-12 overflow-hidden border-r border-[#1e293b]">
+    <div className="min-h-screen flex items-stretch bg-[#0b0f19] text-gray-100 w-full" id="auth-container">
+      {/* Side Visual branding panel (Hidden on Mobile/Tablets, displays beautifully on Desktop) */}
+      <div className="hidden lg:flex lg:w-1/2 bg-radial from-[#0d1e36] to-[#0b0f19] relative items-center justify-center p-8 xl:p-12 overflow-hidden border-r border-[#1e293b]">
         <div className="absolute top-10 left-10 flex items-center space-x-3">
           <div className="bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/20">
             <Leaf className="h-6 w-6 text-emerald-400" />
           </div>
           <span className="font-display font-bold text-xl tracking-wide bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">EcoSphere</span>
         </div>
-
-        {/* Decorative Grid and Ambient Lights */}
+        
+        {/* Ambient background decoration */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b12_1px,transparent_1px),linear-gradient(to_bottom,#1e293b12_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl animate-glow"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl animate-glow"></div>
-
+        
         <div className="relative max-w-md text-center space-y-8 animate-float">
           <div className="inline-block px-4 py-1.5 bg-emerald-500/10 rounded-full border border-emerald-500/20 text-xs font-medium text-emerald-400 tracking-wider uppercase mb-2">
             Enterprise ESG Management
@@ -170,7 +165,7 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
           <p className="text-gray-400 leading-relaxed text-sm">
             Empower your organization to monitor carbon transactions, set aggressive emission targets, automate CSR participation, and maintain high standards of ethical corporate governance.
           </p>
-
+          
           <div className="grid grid-cols-3 gap-4 pt-6">
             <div className="bg-[#111827]/60 backdrop-blur-md p-4 rounded-xl border border-white/5">
               <div className="text-2xl font-bold text-emerald-400">40%</div>
@@ -188,23 +183,25 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
         </div>
       </div>
 
-      {/* Form panel */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 md:p-16">
-        <div className="w-full max-w-md space-y-8">
-          {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center space-x-3 mb-8">
-            <Leaf className="h-8 w-8 text-emerald-400" />
-            <span className="font-display font-bold text-2xl tracking-wide bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">EcoSphere</span>
+      {/* Interactive Authentication Form Panel (Takes full screen width on mobile devices) */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 md:p-16 overflow-y-auto">
+        <div className="w-full max-w-md space-y-6 lg:space-y-8">
+          {/* Brand header specifically for small screen viewports */}
+          <div className="lg:hidden flex items-center space-x-3 mb-6">
+            <div className="bg-emerald-500/10 p-2 rounded-xl border border-emerald-500/20">
+              <Leaf className="h-6 w-6 text-emerald-400" />
+            </div>
+            <span className="font-display font-bold text-xl tracking-wide bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">EcoSphere</span>
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight text-white font-display">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-display">
               {view === 'login' && 'Sign in to platform'}
               {view === 'register' && 'Create your account'}
               {view === 'forgot' && 'Reset your password'}
               {view === 'reset' && 'Reconfigure password'}
             </h2>
-            <p className="text-sm text-gray-400">
+            <p className="text-xs sm:text-sm text-gray-400 leading-normal">
               {view === 'login' && "Enter your credentials to access EcoSphere's dashboard"}
               {view === 'register' && 'Onboard your corporate profile to start logging activities'}
               {view === 'forgot' && 'Provide your registered email to simulate a reset dispatch'}
@@ -213,23 +210,23 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
           </div>
 
           {error && (
-            <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg text-xs font-medium" id="auth-error">
+            <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl text-xs font-medium animate-fade-in" id="auth-error">
               {error}
             </div>
           )}
 
           {resetSuccessMsg && (
-            <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-lg text-xs font-medium" id="auth-success">
+            <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl text-xs font-medium animate-fade-in" id="auth-success">
               {resetSuccessMsg}
             </div>
           )}
 
-          {/* Login Form */}
+          {/* Login view layout */}
           {view === 'login' && (
-            <form onSubmit={handleLogin} className="space-y-6" id="login-form">
+            <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6" id="login-form">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Email Address</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">Email Address</label>
                   <div className="relative">
                     <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
@@ -244,7 +241,7 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                 </div>
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400">Password</label>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400">Password</label>
                     <button
                       type="button"
                       onClick={() => setView('forgot')}
@@ -259,7 +256,7 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••"
+                      placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                       className="w-full bg-[#111827]/80 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 text-white transition-all duration-200"
                       required
                     />
@@ -270,7 +267,7 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-900/20 active:scale-[0.98] flex items-center justify-center space-x-2"
+                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-900/20 active:scale-[0.98] flex items-center justify-center space-x-2 cursor-pointer"
                 id="btn-login-submit"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <span>Sign In</span>}
@@ -288,49 +285,49 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                 </button>
               </div>
 
-              {/* Fast Login Shortcuts for Sandbox Preview */}
-              <div className="border-t border-slate-800/60 pt-6">
+              {/* Fast Sandbox Login Shortcuts */}
+              <div className="border-t border-slate-800/60 pt-5">
                 <p className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-3 text-center">Fast-Onboard Preview Shortcuts</p>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => { setEmail('admin@ecosphere.com'); setPassword('password123'); }}
-                    className="p-2 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
+                    className="p-2.5 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
                   >
-                    👑 Admin Login
+                    Admin Login
                   </button>
                   <button
                     type="button"
                     onClick={() => { setEmail('operations@ecosphere.com'); setPassword('password123'); }}
-                    className="p-2 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
+                    className="p-2.5 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
                   >
-                    💼 Dept Head (Ops)
+                    Dept Head (Ops)
                   </button>
                   <button
                     type="button"
                     onClick={() => { setEmail('employee@ecosphere.com'); setPassword('password123'); }}
-                    className="p-2 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
+                    className="p-2.5 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
                   >
-                    🌱 Employee (Alex)
+                    Employee (Alex)
                   </button>
                   <button
                     type="button"
                     onClick={() => { setEmail('auditor@ecosphere.com'); setPassword('password123'); }}
-                    className="p-2 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
+                    className="p-2.5 bg-[#1e293b]/30 hover:bg-[#1e293b]/60 rounded-lg border border-slate-800 text-[11px] text-gray-300 text-left truncate transition-all duration-150"
                   >
-                    🔍 Auditor Login
+                    Auditor Login
                   </button>
                 </div>
               </div>
             </form>
           )}
 
-          {/* Registration Form */}
+          {/* Registration layout */}
           {view === 'register' && (
-            <form onSubmit={handleRegister} className="space-y-5" id="register-form">
+            <form onSubmit={handleRegister} className="space-y-4 sm:space-y-5" id="register-form">
               <div className="space-y-3.5">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">Full Name</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Full Name</label>
                   <div className="relative">
                     <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
@@ -343,9 +340,8 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                     />
                   </div>
                 </div>
-
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">Email Address</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Email Address</label>
                   <div className="relative">
                     <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
@@ -358,9 +354,8 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                     />
                   </div>
                 </div>
-
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">Security Password</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Security Password</label>
                   <div className="relative">
                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
@@ -373,16 +368,15 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                     />
                   </div>
                 </div>
-
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">Platform Role</label>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Platform Role</label>
                     <div className="relative">
                       <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                       <select
                         value={role}
                         onChange={(e: any) => setRole(e.target.value)}
-                        className="w-full bg-[#111827]/80 border border-slate-800 rounded-xl py-2.5 pl-10 pr-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/40 text-white transition-all"
+                        className="w-full bg-[#111827]/80 border border-slate-800 rounded-xl py-2.5 pl-10 pr-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/40 text-white transition-all appearance-none"
                       >
                         <option value="employee">Employee</option>
                         <option value="dept_head">Dept Head</option>
@@ -391,10 +385,9 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                       </select>
                     </div>
                   </div>
-
                   {role !== 'admin' && role !== 'auditor' && (
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">Department</label>
+                      <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Department</label>
                       <select
                         value={departmentId}
                         onChange={(e) => setDepartmentId(e.target.value)}
@@ -414,7 +407,7 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg active:scale-[0.98] flex items-center justify-center space-x-2 mt-2"
+                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg active:scale-[0.98] flex items-center justify-center space-x-2 mt-2 cursor-pointer"
                 id="btn-register-submit"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <span>Create Account</span>}
@@ -434,11 +427,11 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
             </form>
           )}
 
-          {/* Forgot Password */}
+          {/* Forgot Password layout */}
           {view === 'forgot' && (
             <form onSubmit={handleForgotPassword} className="space-y-6" id="forgot-form">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Registered Email Address</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">Registered Email Address</label>
                 <div className="relative">
                   <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                   <input
@@ -448,14 +441,14 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                     placeholder="e.g. employee@ecosphere.com"
                     className="w-full bg-[#111827]/80 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 text-white transition-all duration-200"
                     required
-                  />
+                    />
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98] flex items-center justify-center space-x-2"
+                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98] flex items-center justify-center space-x-2 cursor-pointer"
                 id="btn-forgot-submit"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <span>Send Reset Link</span>}
@@ -475,12 +468,12 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
             </form>
           )}
 
-          {/* Reset Password Form */}
+          {/* Reset Password layout */}
           {view === 'reset' && (
             <form onSubmit={handleResetPassword} className="space-y-6" id="reset-form">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Confirm Account Email</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">Confirm Account Email</label>
                   <div className="relative">
                     <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
@@ -493,16 +486,15 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
                     />
                   </div>
                 </div>
-
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Configure New Password</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">Configure New Password</label>
                   <div className="relative">
                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
                       type="password"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      placeholder="••••••••"
+                      placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                       className="w-full bg-[#111827]/80 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 text-white transition-all duration-200"
                       required
                     />
@@ -513,7 +505,7 @@ export default function AuthPages({ onLoginSuccess }: AuthPagesProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98] flex items-center justify-center space-x-2"
+                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98] flex items-center justify-center space-x-2 cursor-pointer"
                 id="btn-reset-submit"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <span>Update Password</span>}

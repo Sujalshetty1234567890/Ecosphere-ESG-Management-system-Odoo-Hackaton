@@ -140,9 +140,6 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
     return parseFloat(((formData.quantity * selectedFactor.factor) / 1000).toFixed(3));
   };
 
-  const sortedGoals = [...goals].sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
-  const sortedTransactions = [...transactions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
   return (
     <div className="space-y-8" id="environment-tab-container">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -183,7 +180,7 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {sortedGoals.map((goal) => {
+          {goals.map((goal) => {
             const ratio = goal.targetValue > 0 ? (goal.currentValue / goal.targetValue) * 100 : 0;
             const isExceeded = ratio > 100;
             return (
@@ -253,7 +250,7 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-xs">
-              {sortedTransactions.map((tx) => (
+              {transactions.map((tx) => (
                 <tr key={tx.id} className="hover:bg-slate-50/50 text-slate-700">
                   <td className="py-3.5 pl-2 font-mono text-slate-500 font-semibold">{tx.date}</td>
                   <td className="py-3.5 font-bold text-slate-900 uppercase tracking-tight">{departments.find(d => d.id === tx.departmentId)?.name || 'Operations'}</td>

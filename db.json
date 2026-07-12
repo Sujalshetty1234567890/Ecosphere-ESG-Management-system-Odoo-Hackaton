@@ -72,8 +72,8 @@
       "name": "asdj",
       "role": "employee",
       "departmentId": "dept-ops",
-      "xp": 11000,
-      "balancePoints": 700,
+      "xp": 1100,
+      "balancePoints": 350,
       "passwordHash": "9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0",
       "createdAt": "2026-07-12T08:47:55.889Z"
     }
@@ -1037,16 +1037,8 @@
       "userId": "user-1783846075889",
       "challengeId": "chal-1",
       "joinedDate": "2026-07-12T11:09:12.818Z",
-      "progress": 100,
-      "status": "under_review"
-    },
-    {
-      "id": "cp-1783854639911",
-      "userId": "user-admin",
-      "challengeId": "chal-1",
-      "joinedDate": "2026-07-12T11:10:39.911Z",
-      "progress": 100,
-      "status": "under_review"
+      "progress": 0,
+      "status": "active"
     }
   ],
   "policies": [
@@ -1256,7 +1248,7 @@
       "title": "Double Wall Vacuum Thermos (750ml)",
       "description": "Premium insulated matte-black bottle keeping water ice-cold for 24 hours, eradicating disposable plastics.",
       "costPoints": 800,
-      "stock": 11,
+      "stock": 12,
       "active": true
     },
     {
@@ -1264,7 +1256,7 @@
       "title": "Floating Carbon-Credit Floating Day off",
       "description": "Trade your high-earned community points for one paid floating relaxation/wellbeing day.",
       "costPoints": 2000,
-      "stock": 4,
+      "stock": 5,
       "active": true
     }
   ],
@@ -1295,20 +1287,6 @@
       "userId": "user-employee",
       "rewardId": "rew-2",
       "redeemedAt": "2026-07-12T07:13:51.484Z",
-      "status": "pending"
-    },
-    {
-      "id": "rr-1783854791258",
-      "userId": "user-1783846075889",
-      "rewardId": "rew-4",
-      "redeemedAt": "2026-07-12T11:13:11.258Z",
-      "status": "pending"
-    },
-    {
-      "id": "rr-1783854799096",
-      "userId": "user-1783846075889",
-      "rewardId": "rew-3",
-      "redeemedAt": "2026-07-12T11:13:19.096Z",
       "status": "pending"
     }
   ],
@@ -1393,24 +1371,6 @@
       "type": "badge",
       "read": true,
       "createdAt": "2026-07-12T11:08:04.870Z"
-    },
-    {
-      "id": "not-1783854791258-191",
-      "userId": "user-1783846075889",
-      "title": "Reward Redeemed successfully!",
-      "message": "You redeemed \"Floating Carbon-Credit Floating Day off\" for 2000 points. Status: Pending Delivery.",
-      "type": "reward",
-      "read": false,
-      "createdAt": "2026-07-12T11:13:11.258Z"
-    },
-    {
-      "id": "not-1783854799096-534",
-      "userId": "user-1783846075889",
-      "title": "Reward Redeemed successfully!",
-      "message": "You redeemed \"Double Wall Vacuum Thermos (750ml)\" for 800 points. Status: Pending Delivery.",
-      "type": "reward",
-      "read": false,
-      "createdAt": "2026-07-12T11:13:19.096Z"
     }
   ],
   "departmentScores": [
@@ -1421,7 +1381,7 @@
       "socialScore": 44,
       "governanceScore": 44,
       "overallScore": 59,
-      "lastUpdated": "2026-07-12T11:12:49.326Z"
+      "lastUpdated": "2026-07-12T11:08:04.872Z"
     },
     {
       "id": "ds-dept-log",
@@ -1430,7 +1390,7 @@
       "socialScore": 0,
       "governanceScore": 23,
       "overallScore": 40,
-      "lastUpdated": "2026-07-12T11:12:49.326Z"
+      "lastUpdated": "2026-07-12T11:08:04.872Z"
     },
     {
       "id": "ds-dept-it",
@@ -1439,7 +1399,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 90,
-      "lastUpdated": "2026-07-12T11:12:49.326Z"
+      "lastUpdated": "2026-07-12T11:08:04.872Z"
     },
     {
       "id": "ds-dept-hr",
@@ -1448,7 +1408,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 86,
-      "lastUpdated": "2026-07-12T11:12:49.326Z"
+      "lastUpdated": "2026-07-12T11:08:04.872Z"
     },
     {
       "id": "ds-dept-mfg",
@@ -1457,7 +1417,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 88,
-      "lastUpdated": "2026-07-12T11:12:49.326Z"
+      "lastUpdated": "2026-07-12T11:08:04.872Z"
     },
     {
       "id": "ds-dept-1783853555796",
@@ -1466,7 +1426,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 89,
-      "lastUpdated": "2026-07-12T11:12:49.326Z"
+      "lastUpdated": "2026-07-12T11:08:04.872Z"
     }
   ],
   "settings": {

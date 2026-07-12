@@ -184,44 +184,44 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
   };
 
   return (
-    <div className="space-y-8" id="master-registry-container">
+    <div className="space-y-6 lg:space-y-8" id="master-registry-container">
       <div>
-        <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-950">Master Registry Setup</h1>
+        <h1 className="font-display text-2xl lg:text-3xl font-extrabold tracking-tight text-slate-950">Master Registry Setup</h1>
         <p className="text-sm text-slate-500 mt-1 font-medium">Configure carbon factors, departments limits, and ESG pillar scoring models</p>
       </div>
 
-      {/* Sub menu selector */}
-      <div className="flex border border-slate-300/80 space-x-1.5 p-1 bg-slate-200/50 backdrop-blur-md rounded-xl max-w-md shadow-sm">
+      {/* Sub menu navigation selector (Scrolls cleanly if tabs overflow screens on smaller mobile devices) */}
+      <div className="flex border border-slate-300/80 space-x-1 p-1 bg-slate-200/50 backdrop-blur-md rounded-xl max-w-md overflow-x-auto scrollbar-none shadow-sm">
         <button
           onClick={() => { setActiveSubTab('depts'); setError(''); setSuccess(''); }}
-          className={`flex-1 py-2.5 px-3 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-150 ${
+          className={`flex-1 min-w-[105px] py-2 px-2.5 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-150 text-center whitespace-nowrap ${
             activeSubTab === 'depts' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
           }`}
         >
-          <Building2 className="h-4 w-4 inline mr-1.5" />
-          Departments
+          <Building2 className="h-3.5 w-3.5 inline mr-1" />
+          Divisions
         </button>
         <button
           onClick={() => { setActiveSubTab('factors'); setError(''); setSuccess(''); }}
-          className={`flex-1 py-2.5 px-3 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-150 ${
+          className={`flex-1 min-w-[100px] py-2 px-2.5 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-150 text-center whitespace-nowrap ${
             activeSubTab === 'factors' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
           }`}
         >
-          <Database className="h-4 w-4 inline mr-1.5" />
+          <Database className="h-3.5 w-3.5 inline mr-1" />
           Factors
         </button>
         <button
           onClick={() => { setActiveSubTab('weights'); setError(''); setSuccess(''); }}
-          className={`flex-1 py-2.5 px-3 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-150 ${
+          className={`flex-1 min-w-[100px] py-2 px-2.5 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-150 text-center whitespace-nowrap ${
             activeSubTab === 'weights' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
           }`}
         >
-          <Settings className="h-4 w-4 inline mr-1.5" />
+          <Settings className="h-3.5 w-3.5 inline mr-1" />
           Weights
         </button>
       </div>
 
-      {/* Messaging banner */}
+      {/* Response feedback banners */}
       {error && (
         <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs flex items-center space-x-2 shadow-sm animate-fade-in">
           <AlertCircle className="h-4.5 w-4.5 shrink-0" />
@@ -237,17 +237,18 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
 
       {/* Tab Contents: Departments */}
       {activeSubTab === 'depts' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-4 lg:p-6 shadow-sm overflow-hidden">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight">Active Corporate Divisions</h3>
+              <h3 className="font-display font-bold text-base lg:text-lg text-slate-900 uppercase tracking-tight">Active Corporate Divisions</h3>
               <button onClick={fetchMasterData} className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-colors">
                 <RefreshCw className="h-4 w-4" />
               </button>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+            {/* Table Horizontal Responsive Container boundaries protection */}
+            <div className="overflow-x-auto -mx-4 px-4 lg:mx-0 lg:px-0">
+              <table className="w-full text-left border-collapse min-w-[500px]">
                 <thead>
                   <tr className="border-b border-slate-200 text-[10px] text-slate-400 uppercase tracking-widest font-extrabold">
                     <th className="pb-3 pl-2">Division</th>
@@ -262,8 +263,8 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
                     <tr key={dept.id} className="hover:bg-slate-50/50">
                       <td className="py-3.5 pl-2 font-bold text-slate-900 uppercase tracking-tight">{dept.name}</td>
                       <td className="py-3.5 font-mono text-emerald-600 font-bold">{dept.code}</td>
-                      <td className="py-3.5 text-slate-500 font-medium">{dept.headCount} employees</td>
-                      <td className="py-3.5 text-right font-mono text-slate-900 font-bold">{dept.targetCarbonLimit} t/year</td>
+                      <td className="py-3.5 text-slate-500 font-medium whitespace-nowrap">{dept.headCount} employees</td>
+                      <td className="py-3.5 text-right font-mono text-slate-900 font-bold whitespace-nowrap">{dept.targetCarbonLimit} t/year</td>
                       <td className="py-3.5 text-right pr-2">
                         <button
                           onClick={() => handleDeleteDepartment(dept.id)}
@@ -284,7 +285,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 lg:p-6 shadow-sm h-fit">
             <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Onboard New Division</h3>
             <form onSubmit={handleCreateDepartment} className="space-y-4">
               <div>
@@ -298,7 +299,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
                   className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3.5 text-xs text-slate-900 focus:outline-none focus:border-slate-400 font-medium"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] text-slate-400 font-bold mb-2 uppercase tracking-wider">DIVISION CODE</label>
                   <input
@@ -333,7 +334,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
               </div>
               <button
                 type="submit"
-                className="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3.5 rounded-none transition-all duration-150 mt-2 flex items-center justify-center space-x-1 uppercase tracking-wider shadow-sm"
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3.5 rounded-none transition-all duration-150 mt-2 flex items-center justify-center space-x-1 uppercase tracking-wider shadow-sm cursor-pointer"
               >
                 <Plus className="h-4 w-4" />
                 <span>Add Department</span>
@@ -345,12 +346,12 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
 
       {/* Tab Contents: Factors */}
       {activeSubTab === 'factors' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-4 lg:p-6 shadow-sm overflow-hidden">
             <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Emissions Calculations Directory</h3>
             
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+            <div className="overflow-x-auto -mx-4 px-4 lg:mx-0 lg:px-0">
+              <table className="w-full text-left border-collapse min-w-[550px]">
                 <thead>
                   <tr className="border-b border-slate-200 text-[10px] text-slate-400 uppercase tracking-widest font-extrabold">
                     <th className="pb-3 pl-2">Factor Item</th>
@@ -366,10 +367,10 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
                     return (
                       <tr key={fac.id} className="hover:bg-slate-50/50">
                         <td className="py-3.5 pl-2 font-bold text-slate-900 uppercase tracking-tight">{fac.name}</td>
-                        <td className="py-3.5 font-mono text-emerald-600 font-bold">{fac.factor} kg CO2e</td>
-                        <td className="py-3.5 font-mono text-slate-500 font-medium">per {fac.unit}</td>
+                        <td className="py-3.5 font-mono text-emerald-600 font-bold whitespace-nowrap">{fac.factor} kg CO2e</td>
+                        <td className="py-3.5 font-mono text-slate-500 font-medium whitespace-nowrap">per {fac.unit}</td>
                         <td className="py-3.5">
-                          <span className="px-2.5 py-1 rounded-none bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold uppercase tracking-wider">
+                          <span className="px-2.5 py-1 rounded-none bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">
                             {cat ? cat.name : 'Environmental'}
                           </span>
                         </td>
@@ -389,7 +390,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 lg:p-6 shadow-sm h-fit">
             <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Create Emission Factor</h3>
             <form onSubmit={handleCreateFactor} className="space-y-4">
               <div>
@@ -403,7 +404,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
                   className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3.5 text-xs text-slate-900 focus:outline-none focus:border-slate-400 font-medium"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] text-slate-400 font-bold mb-2 uppercase tracking-wider">COEFFICIENT</label>
                   <input
@@ -432,7 +433,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
                 <select
                   value={newFactor.categoryId}
                   onChange={(e) => setNewFactor({ ...newFactor, categoryId: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3.5 text-xs text-slate-900 focus:outline-none focus:border-slate-400 font-bold"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3 text-xs text-slate-900 focus:outline-none focus:border-slate-400 font-bold"
                 >
                   {categories.filter(c => c.type === 'environmental').map(c => (
                     <option key={c.id} value={c.id}>{c.name}</option>
@@ -441,7 +442,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
               </div>
               <button
                 type="submit"
-                className="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3.5 rounded-none transition-all duration-150 mt-2 flex items-center justify-center space-x-1 uppercase tracking-wider shadow-sm"
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3.5 rounded-none transition-all duration-150 mt-2 flex items-center justify-center space-x-1 uppercase tracking-wider shadow-sm cursor-pointer"
               >
                 <Plus className="h-4 w-4" />
                 <span>Add Factor Code</span>
@@ -453,7 +454,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
 
       {/* Tab Contents: Weights */}
       {activeSubTab === 'weights' && (
-        <div className="max-w-2xl bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-2xl p-4 lg:p-6 shadow-sm">
           <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-2">Score Tuning Weights</h3>
           <p className="text-xs text-slate-500 mb-8 font-medium">Define relative weighting indices for organizational and department overall score aggregation. The sum of Environmental, Social, and Governance pillars must equal exactly 100%.</p>
           <form onSubmit={handleUpdateWeights} className="space-y-6">
@@ -513,9 +514,9 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
             </div>
 
             {/* Sum validator indicator */}
-            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs text-slate-700 font-medium">
+            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center text-xs text-slate-700 font-medium gap-2">
               <span>Aggregated Weight Calculation Ratio:</span>
-              <span className={`font-mono font-bold px-3 py-1 rounded-full ${
+              <span className={`font-mono font-bold px-3 py-1 rounded-full text-center ${
                 (Number(weights.environmental) + Number(weights.social) + Number(weights.governance)) === 100
                   ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                   : 'bg-red-50 text-red-700 border border-red-200'
@@ -526,7 +527,7 @@ export default function MasterDataView({ onRefreshStats }: MasterDataViewProps) 
 
             <button
               type="submit"
-              className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-6 py-3.5 rounded-none transition-all duration-150 uppercase tracking-wider shadow-sm"
+              className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-6 py-3.5 rounded-none transition-all duration-150 uppercase tracking-wider shadow-sm cursor-pointer text-center"
             >
               Update ESG Configuration Matrix
             </button>

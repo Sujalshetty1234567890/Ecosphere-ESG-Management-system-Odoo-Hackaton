@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Leaf, LayoutDashboard, Database, TreeDeciduous, Users, 
-  ShieldAlert, Trophy, FileBarChart, LogOut, Settings, Bell
+  ShieldAlert, Trophy, FileBarChart, LogOut, Settings, Bell 
 } from 'lucide-react';
 import { User } from '../types';
 
@@ -26,9 +26,9 @@ export default function Sidebar({ user, activeTab, setActiveTab, onLogout, compa
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col h-screen fixed top-0 left-0 z-20 shrink-0 text-slate-400" id="sidebar-panel">
-      {/* Brand logo header */}
-      <div className="p-6 border-b border-slate-800 flex items-center space-x-3">
+    <aside className="w-full lg:w-64 bg-slate-900 border-r border-slate-800 flex flex-col h-screen text-slate-400 sticky top-0" id="sidebar-panel">
+      {/* 1. Header Branding Component */}
+      <div className="p-6 border-b border-slate-800 flex items-center space-x-3 shrink-0">
         <div className="w-8 h-8 bg-emerald-500 rounded-sm flex items-center justify-center shrink-0">
           <div className="w-4 h-4 border-2 border-white rotate-45"></div>
         </div>
@@ -38,10 +38,10 @@ export default function Sidebar({ user, activeTab, setActiveTab, onLogout, compa
         </div>
       </div>
 
-      {/* User profile capsule */}
-      <div className="p-5 border-b border-slate-800/60 bg-slate-950/40">
+      {/* 2. User Profile Capsule Widget */}
+      <div className="p-5 border-b border-slate-800/60 bg-slate-950/40 shrink-0">
         <div className="flex items-center space-x-3.5">
-          <div className="h-10 w-10 rounded bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center font-display font-bold text-emerald-500">
+          <div className="h-10 w-10 rounded bg-emerald-50/20 border border-emerald-500/30 flex items-center justify-center font-display font-bold text-emerald-500 shrink-0">
             {user.name.charAt(0)}
           </div>
           <div className="flex-1 min-w-0">
@@ -54,23 +54,23 @@ export default function Sidebar({ user, activeTab, setActiveTab, onLogout, compa
           </div>
         </div>
 
-        {/* User stats widget (XP / Points) */}
+        {/* User stats indicator matrices (XP / Points) */}
         {user.role !== 'auditor' && (
           <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-slate-800/60">
             <div className="bg-slate-950/50 rounded-sm p-2 border border-slate-800 text-center">
               <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">XP LEVEL</div>
-              <div className="text-xs font-extrabold text-emerald-400 font-mono mt-0.5">{user.xp} XP</div>
+              <div className="text-xs font-extrabold text-emerald-400 font-mono mt-0.5 truncate">{user.xp} XP</div>
             </div>
             <div className="bg-slate-950/50 rounded-sm p-2 border border-slate-800 text-center">
               <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">BALANCE</div>
-              <div className="text-xs font-extrabold text-teal-400 font-mono mt-0.5">{user.balancePoints} pts</div>
+              <div className="text-xs font-extrabold text-teal-400 font-mono mt-0.5 truncate">{user.balancePoints} pts</div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Navigation section */}
-      <nav className="flex-1 px-1 py-4 space-y-1 overflow-y-auto">
+      {/* 3. Center Navigation Section (This section handles inner overflows gracefully) */}
+      <nav className="flex-1 px-1 py-4 space-y-1 overflow-y-auto min-h-0 scrollbar-none">
         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-4 mb-2.5">Modules</div>
         {menuItems
           .filter((item) => item.roles.includes(user.role))
@@ -88,12 +88,12 @@ export default function Sidebar({ user, activeTab, setActiveTab, onLogout, compa
                 }`}
                 id={`nav-${item.id}`}
               >
-                <div className="flex items-center space-x-3">
-                  <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-emerald-400' : 'text-slate-500 group-hover:text-white transition-colors'}`} />
-                  <span>{item.label}</span>
+                <div className="flex items-center space-x-3 min-w-0">
+                  <Icon className={`h-4.5 w-4.5 shrink-0 ${isActive ? 'text-emerald-400' : 'text-slate-500 group-hover:text-white transition-colors'}`} />
+                  <span className="truncate">{item.label}</span>
                 </div>
                 {item.id === 'dashboard' && notificationsCount > 0 && (
-                  <span className="bg-red-500 text-white text-[10px] font-extrabold px-1.5 py-0.5 rounded-full animate-pulse">
+                  <span className="bg-red-500 text-white text-[10px] font-extrabold px-1.5 py-0.5 rounded-full animate-pulse shrink-0">
                     {notificationsCount}
                   </span>
                 )}
@@ -102,8 +102,8 @@ export default function Sidebar({ user, activeTab, setActiveTab, onLogout, compa
           })}
       </nav>
 
-      {/* Footer log out action */}
-      <div className="p-4 border-t border-slate-800 space-y-1">
+      {/* 4. Bottom Pinned Layout Actions Footer (Stays static at the viewport bottom boundary) */}
+      <div className="p-4 border-t border-slate-800 bg-slate-900 space-y-1 shrink-0 mt-auto">
         {user.role === 'admin' && (
           <button
             onClick={() => setActiveTab('settings')}
@@ -114,17 +114,17 @@ export default function Sidebar({ user, activeTab, setActiveTab, onLogout, compa
             }`}
             id="nav-settings"
           >
-            <Settings className="h-4 w-4" />
-            <span>Platform Settings</span>
+            <Settings className="h-4 w-4 shrink-0" />
+            <span className="truncate">Platform Settings</span>
           </button>
         )}
         <button
           onClick={onLogout}
-          className="w-full flex items-center space-x-3 px-3.5 py-2 rounded-none text-xs font-medium text-red-400 hover:bg-red-500/10 transition-colors border-l-2 border-transparent"
+          className="w-full flex items-center space-x-3 px-3.5 py-2 rounded-none text-xs font-medium text-red-400 hover:bg-red-500/10 transition-colors border-l-2 border-transparent cursor-pointer"
           id="btn-logout"
         >
-          <LogOut className="h-4 w-4 text-red-400" />
-          <span>Sign Out</span>
+          <LogOut className="h-4 w-4 text-red-400 shrink-0" />
+          <span className="truncate">Sign Out</span>
         </button>
       </div>
     </aside>
