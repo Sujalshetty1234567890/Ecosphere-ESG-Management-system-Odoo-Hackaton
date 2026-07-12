@@ -70,7 +70,6 @@ export default function DashboardView({ user, stats, notifications, onMarkNotifi
           </button>
           
           <div className="text-xs text-slate-500 font-mono bg-white border border-slate-200 rounded-none px-4 py-2.5 shadow-sm font-bold uppercase tracking-wider">
-            UTC: 2026-07-11
           </div>
         </div>
       </div>

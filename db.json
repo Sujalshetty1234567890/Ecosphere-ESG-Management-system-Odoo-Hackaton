@@ -1,0 +1,1243 @@
+{
+  "users": [
+    {
+      "id": "user-admin",
+      "email": "admin@ecosphere.com",
+      "name": "Sarah Jenkins",
+      "role": "admin",
+      "departmentId": null,
+      "xp": 450,
+      "balancePoints": 200,
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "user-ops-head",
+      "email": "operations@ecosphere.com",
+      "name": "David Miller",
+      "role": "dept_head",
+      "departmentId": "dept-ops",
+      "xp": 1200,
+      "balancePoints": 500,
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "user-log-head",
+      "email": "logistics@ecosphere.com",
+      "name": "Elena Rostova",
+      "role": "dept_head",
+      "departmentId": "dept-log",
+      "xp": 950,
+      "balancePoints": 400,
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "user-employee",
+      "email": "employee@ecosphere.com",
+      "name": "Alex Wong",
+      "role": "employee",
+      "departmentId": "dept-ops",
+      "xp": 2800,
+      "balancePoints": 1250,
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "user-auditor",
+      "email": "auditor@ecosphere.com",
+      "name": "Marcus Vance",
+      "role": "auditor",
+      "departmentId": null,
+      "xp": 600,
+      "balancePoints": 250,
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    }
+  ],
+  "departments": [
+    {
+      "id": "dept-ops",
+      "name": "Operations",
+      "code": "OPS",
+      "managerId": "user-ops-head",
+      "headCount": 120,
+      "targetCarbonLimit": 500,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "dept-log",
+      "name": "Logistics",
+      "code": "LOG",
+      "managerId": "user-log-head",
+      "headCount": 45,
+      "targetCarbonLimit": 850,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "dept-it",
+      "name": "Information Technology",
+      "code": "IT",
+      "managerId": null,
+      "headCount": 80,
+      "targetCarbonLimit": 120,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "dept-hr",
+      "name": "Human Resources",
+      "code": "HR",
+      "managerId": null,
+      "headCount": 15,
+      "targetCarbonLimit": 40,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "dept-mfg",
+      "name": "Manufacturing",
+      "code": "MFG",
+      "managerId": null,
+      "headCount": 300,
+      "targetCarbonLimit": 1500,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-scope1",
+      "name": "Scope 1 - Direct Emissions",
+      "description": "Direct emissions from owned or controlled sources (fuels, company vehicles).",
+      "type": "environmental"
+    },
+    {
+      "id": "cat-scope2",
+      "name": "Scope 2 - Indirect Emissions",
+      "description": "Indirect emissions from the generation of purchased electricity, steam, heating.",
+      "type": "environmental"
+    },
+    {
+      "id": "cat-scope3",
+      "name": "Scope 3 - Other Indirect",
+      "description": "Indirect emissions from business travel, employee commuting, waste, supply chain.",
+      "type": "environmental"
+    },
+    {
+      "id": "cat-social-comm",
+      "name": "Social - Community Outreach",
+      "description": "Community engagement, charity, and environmental conservation volunteering.",
+      "type": "social"
+    },
+    {
+      "id": "cat-social-div",
+      "name": "Social - Diversity & Inclusion",
+      "description": "Training sessions, workshops, and recruitment diversity trackers.",
+      "type": "social"
+    },
+    {
+      "id": "cat-gov-compliance",
+      "name": "Governance - Compliance & Safety",
+      "description": "Internal regulatory adherence, health & safety certifications, ethical policies.",
+      "type": "governance"
+    }
+  ],
+  "emissionFactors": [
+    {
+      "id": "ef-electricity",
+      "name": "Grid Electricity",
+      "factor": 0.42,
+      "unit": "kWh",
+      "categoryId": "cat-scope2",
+      "active": true
+    },
+    {
+      "id": "ef-natural-gas",
+      "name": "Natural Gas",
+      "factor": 2.03,
+      "unit": "m3",
+      "categoryId": "cat-scope1",
+      "active": true
+    },
+    {
+      "id": "ef-petrol",
+      "name": "Petrol (Company Vehicles)",
+      "factor": 2.31,
+      "unit": "Litre",
+      "categoryId": "cat-scope1",
+      "active": true
+    },
+    {
+      "id": "ef-diesel",
+      "name": "Diesel (Trucks & Fleet)",
+      "factor": 2.68,
+      "unit": "Litre",
+      "categoryId": "cat-scope1",
+      "active": true
+    },
+    {
+      "id": "ef-flight",
+      "name": "Business Flights (Short Haul)",
+      "factor": 0.15,
+      "unit": "km",
+      "categoryId": "cat-scope3",
+      "active": true
+    },
+    {
+      "id": "ef-waste",
+      "name": "General Waste to Landfill",
+      "factor": 0.5,
+      "unit": "kg",
+      "categoryId": "cat-scope3",
+      "active": true
+    }
+  ],
+  "carbonTransactions": [
+    {
+      "id": "tx-elec-OPS-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 73836,
+      "calculatedEmissions": 31.01,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Operations office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-OPS-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 2873,
+      "calculatedEmissions": 6.64,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-LOG-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 113194,
+      "calculatedEmissions": 47.54,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Logistics office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-LOG-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-diesel",
+      "quantity": 6892,
+      "calculatedEmissions": 18.47,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-IT-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-it",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 18125,
+      "calculatedEmissions": 7.61,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Information Technology office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-HR-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-hr",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 22623,
+      "calculatedEmissions": 9.5,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Human Resources office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-MFG-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 187807,
+      "calculatedEmissions": 78.88,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Manufacturing office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-MFG-5",
+      "date": "2026-02-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 6495,
+      "calculatedEmissions": 15,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-OPS-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 61662,
+      "calculatedEmissions": 25.9,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Operations office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-OPS-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 5353,
+      "calculatedEmissions": 12.37,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-LOG-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 104794,
+      "calculatedEmissions": 44.01,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Logistics office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-LOG-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-diesel",
+      "quantity": 6385,
+      "calculatedEmissions": 17.11,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-IT-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-it",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 16781,
+      "calculatedEmissions": 7.05,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Information Technology office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-HR-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-hr",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 6126,
+      "calculatedEmissions": 2.57,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Human Resources office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-MFG-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 188779,
+      "calculatedEmissions": 79.29,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Manufacturing office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-MFG-4",
+      "date": "2026-03-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 6566,
+      "calculatedEmissions": 15.17,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-OPS-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 75219,
+      "calculatedEmissions": 31.59,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Operations office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-OPS-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 2538,
+      "calculatedEmissions": 5.86,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-LOG-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 121718,
+      "calculatedEmissions": 51.12,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Logistics office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-LOG-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-diesel",
+      "quantity": 3008,
+      "calculatedEmissions": 8.06,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-IT-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-it",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 30957,
+      "calculatedEmissions": 13,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Information Technology office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-HR-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-hr",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 7494,
+      "calculatedEmissions": 3.15,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Human Resources office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-MFG-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 194566,
+      "calculatedEmissions": 81.72,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Manufacturing office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-MFG-3",
+      "date": "2026-04-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 2273,
+      "calculatedEmissions": 5.25,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-OPS-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 65096,
+      "calculatedEmissions": 27.34,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Operations office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-OPS-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 5987,
+      "calculatedEmissions": 13.83,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-LOG-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 114531,
+      "calculatedEmissions": 48.1,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Logistics office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-LOG-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-diesel",
+      "quantity": 6387,
+      "calculatedEmissions": 17.12,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-IT-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-it",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 17511,
+      "calculatedEmissions": 7.35,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Information Technology office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-HR-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-hr",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 5177,
+      "calculatedEmissions": 2.17,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Human Resources office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-MFG-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 194463,
+      "calculatedEmissions": 81.67,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Manufacturing office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-MFG-2",
+      "date": "2026-05-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 6365,
+      "calculatedEmissions": 14.7,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-OPS-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 79319,
+      "calculatedEmissions": 33.31,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Operations office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-OPS-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 3486,
+      "calculatedEmissions": 8.05,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-LOG-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 106473,
+      "calculatedEmissions": 44.72,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Logistics office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-LOG-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-diesel",
+      "quantity": 4329,
+      "calculatedEmissions": 11.6,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-IT-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-it",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 25621,
+      "calculatedEmissions": 10.76,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Information Technology office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-HR-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-hr",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 12445,
+      "calculatedEmissions": 5.23,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Human Resources office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-MFG-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 194751,
+      "calculatedEmissions": 81.8,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Manufacturing office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-MFG-1",
+      "date": "2026-06-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 3037,
+      "calculatedEmissions": 7.02,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-OPS-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 78399,
+      "calculatedEmissions": 32.93,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Operations office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-OPS-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 4203,
+      "calculatedEmissions": 9.71,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-LOG-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 110335,
+      "calculatedEmissions": 46.34,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Logistics office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-LOG-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-log",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-diesel",
+      "quantity": 5682,
+      "calculatedEmissions": 15.23,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-IT-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-it",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 27961,
+      "calculatedEmissions": 11.74,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Information Technology office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-HR-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-hr",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 7037,
+      "calculatedEmissions": 2.96,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Human Resources office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-elec-MFG-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope2",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 182029,
+      "calculatedEmissions": 76.45,
+      "recordedById": "user-ops-head",
+      "description": "Purchased electricity for Manufacturing office",
+      "status": "approved"
+    },
+    {
+      "id": "tx-fuel-MFG-0",
+      "date": "2026-07-15",
+      "departmentId": "dept-mfg",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-petrol",
+      "quantity": 2343,
+      "calculatedEmissions": 5.41,
+      "recordedById": "user-log-head",
+      "description": "Fleet refuel operational log",
+      "status": "approved"
+    }
+  ],
+  "environmentalGoals": [
+    {
+      "id": "goal-1",
+      "title": "Reduce Grid Electricity by 15%",
+      "description": "Achieve a 15% year-over-year reduction in grid energy reliance by onboarding solar options.",
+      "targetValue": 350,
+      "currentValue": 2,
+      "unit": "Tons CO2e",
+      "categoryId": "cat-scope2",
+      "departmentId": "dept-ops",
+      "startDate": "2026-07-12T09:10:16.880Z",
+      "endDate": "2026-12-30T18:30:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "goal-2",
+      "title": "Eco-Friendly Logistics Fleet",
+      "description": "Transition regional delivery vehicles to zero/low emission hybrid engines.",
+      "targetValue": 400,
+      "currentValue": 412,
+      "unit": "Tons CO2e",
+      "categoryId": "cat-scope1",
+      "departmentId": "dept-log",
+      "startDate": "2026-07-12T09:10:16.880Z",
+      "endDate": "2026-12-30T18:30:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "goal-3",
+      "title": "Zero Waste to Landfill Initiative",
+      "description": "Recycle at least 95% of administrative and assembly line paper/plastic waste.",
+      "targetValue": 10,
+      "currentValue": 8,
+      "unit": "Tons Waste",
+      "categoryId": "cat-scope3",
+      "departmentId": "dept-it",
+      "startDate": "2026-07-12T09:10:16.880Z",
+      "endDate": "2026-06-29T18:30:00.000Z",
+      "status": "achieved"
+    }
+  ],
+  "csrActivities": [
+    {
+      "id": "csr-1",
+      "title": "Annual Urban Tree Planting",
+      "description": "Join hands with CityGreen to plant 500 saplings in the industrial outskirts.",
+      "date": "2026-07-24T18:30:00.000Z",
+      "location": "Oakridge Park, Zone B",
+      "pointsReward": 150,
+      "xpReward": 300,
+      "organizerId": "user-admin",
+      "maxParticipants": 50,
+      "status": "planned",
+      "approvedByAdmin": true
+    },
+    {
+      "id": "csr-2",
+      "title": "Coastal Plastics Cleanup Drive",
+      "description": "Volunteering beach cleanup session to collect and classify macro and micro-plastics.",
+      "date": "2026-06-11T18:30:00.000Z",
+      "location": "South Coast Beach",
+      "pointsReward": 200,
+      "xpReward": 400,
+      "organizerId": "user-admin",
+      "maxParticipants": 30,
+      "status": "completed",
+      "approvedByAdmin": true
+    },
+    {
+      "id": "csr-3",
+      "title": "Diversity & Inclusion Leadership Panel",
+      "description": "Fostering equitable workplace hiring practices and bias eradication workshop.",
+      "date": "2026-05-04T18:30:00.000Z",
+      "location": "Main Seminar Hall / Zoom",
+      "pointsReward": 100,
+      "xpReward": 200,
+      "organizerId": "user-ops-head",
+      "maxParticipants": 100,
+      "status": "completed",
+      "approvedByAdmin": true
+    }
+  ],
+  "employeeParticipation": [
+    {
+      "id": "part-1",
+      "userId": "user-employee",
+      "csrActivityId": "csr-2",
+      "participationDate": "2026-06-11T18:30:00.000Z",
+      "hoursLogged": 5,
+      "status": "approved",
+      "xpEarned": 400,
+      "pointsEarned": 200
+    },
+    {
+      "id": "part-2",
+      "userId": "user-employee",
+      "csrActivityId": "csr-3",
+      "participationDate": "2026-05-04T18:30:00.000Z",
+      "hoursLogged": 2,
+      "status": "approved",
+      "xpEarned": 200,
+      "pointsEarned": 100
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chal-1",
+      "title": "Unplug and Unwind Weekend",
+      "description": "Turn off all non-essential workstations, display monitors, and lab appliances completely over the weekend.",
+      "xpReward": 250,
+      "pointsReward": 100,
+      "category": "environmental",
+      "startDate": "2026-07-12T09:10:16.880Z",
+      "endDate": "2026-07-19T09:10:16.880Z",
+      "status": "active"
+    },
+    {
+      "id": "chal-2",
+      "title": "Pedal Power Commute Challenge",
+      "description": "Walk, cycle, or take electric public rail to work for 5 consecutive workdays instead of gas vehicles.",
+      "xpReward": 400,
+      "pointsReward": 150,
+      "category": "environmental",
+      "startDate": "2026-07-12T09:10:16.880Z",
+      "endDate": "2026-07-26T09:10:16.880Z",
+      "status": "active"
+    },
+    {
+      "id": "chal-3",
+      "title": "Governance Ethics Cert Master",
+      "description": "Score 100% on the yearly Compliance & Code of Ethical Business Conduct assessment questionnaire.",
+      "xpReward": 300,
+      "pointsReward": 100,
+      "category": "governance",
+      "startDate": "2026-07-12T09:10:16.880Z",
+      "endDate": "2026-08-11T09:10:16.880Z",
+      "status": "active"
+    }
+  ],
+  "challengeParticipation": [
+    {
+      "id": "cp-1",
+      "userId": "user-employee",
+      "challengeId": "chal-1",
+      "joinedDate": "2026-07-12T09:10:16.880Z",
+      "progress": 80,
+      "status": "active"
+    },
+    {
+      "id": "cp-2",
+      "userId": "user-employee",
+      "challengeId": "chal-3",
+      "joinedDate": "2026-07-12T09:10:16.880Z",
+      "progress": 100,
+      "status": "completed"
+    }
+  ],
+  "policies": [
+    {
+      "id": "pol-1",
+      "title": "Corporate Environmental Code of Conduct",
+      "description": "Sets out our standards for waste reduction, direct carbon conservation, recycling compliance, and clean vendor procurement.",
+      "categoryId": "cat-scope1",
+      "effectiveDate": "2026-01-01",
+      "version": "2.1",
+      "status": "active"
+    },
+    {
+      "id": "pol-2",
+      "title": "Anti-Bribery and Corruption Policy",
+      "description": "Strict compliance code and whistleblowing mechanism protocols dealing with all international partners, suppliers, and governmental agencies.",
+      "categoryId": "cat-gov-compliance",
+      "effectiveDate": "2026-02-15",
+      "version": "1.0",
+      "status": "active"
+    },
+    {
+      "id": "pol-3",
+      "title": "Workplace Equal Opportunity and Diversity Policy",
+      "description": "Comprehensive guidelines establishing non-discriminatory hiring ratios, safe workspace audits, and pay-parity review standardizations.",
+      "categoryId": "cat-social-div",
+      "effectiveDate": "2026-03-10",
+      "version": "1.2",
+      "status": "active"
+    }
+  ],
+  "policyAcknowledgements": [
+    {
+      "id": "ack-1",
+      "userId": "user-employee",
+      "policyId": "pol-1",
+      "acknowledgedAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "ack-2",
+      "userId": "user-employee",
+      "policyId": "pol-2",
+      "acknowledgedAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "ack-3",
+      "userId": "user-ops-head",
+      "policyId": "pol-1",
+      "acknowledgedAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "ack-4",
+      "userId": "user-ops-head",
+      "policyId": "pol-2",
+      "acknowledgedAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "ack-5",
+      "userId": "user-log-head",
+      "policyId": "pol-1",
+      "acknowledgedAt": "2026-07-12T09:10:16.880Z"
+    }
+  ],
+  "audits": [
+    {
+      "id": "aud-1",
+      "title": "Q1 Environmental Compliance Audit",
+      "description": "On-site evaluation of toxic waste management, chemical scrap storage, and Scope 1 fugitive fuel safety checks.",
+      "leadAuditorId": "user-auditor",
+      "departmentId": "dept-ops",
+      "scheduledDate": "2026-05-09T18:30:00.000Z",
+      "completedDate": "2026-05-11T18:30:00.000Z",
+      "status": "completed",
+      "scope": "Manufacturing floor lines & Operations warehouse",
+      "score": 88
+    },
+    {
+      "id": "aud-2",
+      "title": "Supply Chain Labor Standards Review",
+      "description": "Remote assessment verify third-party contractors comply with strict ethical pay rules and worker age restrictions.",
+      "leadAuditorId": "user-auditor",
+      "departmentId": "dept-log",
+      "scheduledDate": "2026-06-19T18:30:00.000Z",
+      "completedDate": "2026-06-21T18:30:00.000Z",
+      "status": "completed",
+      "scope": "Logistics third party haulage vendor list",
+      "score": 92
+    },
+    {
+      "id": "aud-3",
+      "title": "Annual Safety & Emissions Inspection",
+      "description": "Comprehensive inspection checking exhaust particulate levels and floor safety railing layouts.",
+      "leadAuditorId": "user-auditor",
+      "departmentId": "dept-mfg",
+      "scheduledDate": "2026-07-04T18:30:00.000Z",
+      "status": "in_progress",
+      "scope": "Main assembly facility A, B & C"
+    }
+  ],
+  "complianceIssues": [
+    {
+      "id": "ci-1",
+      "auditId": "aud-1",
+      "title": "Inadequate secondary containment for lubricant waste drums",
+      "description": "Several scrap barrels detected on direct concrete slabs. Requires metal safety spill tray buffers immediately.",
+      "severity": "high",
+      "status": "resolved",
+      "assignedToId": "user-ops-head",
+      "dueDate": "2026-06-09T18:30:00.000Z",
+      "resolvedAt": "2026-06-07T18:30:00.000Z",
+      "resolutionNotes": "Modular heavy-duty secondary containment palleted spill basins purchased and placed."
+    },
+    {
+      "id": "ci-2",
+      "auditId": "aud-3",
+      "title": "Safety barrier missing on assembly zone line-3 feed elevator",
+      "description": "Intermittent safety sensor bypass switch configured. Highly dangerous and breaches governance guidelines.",
+      "severity": "critical",
+      "status": "open",
+      "assignedToId": "user-ops-head",
+      "dueDate": "2026-07-17T09:10:16.880Z"
+    },
+    {
+      "id": "ci-3",
+      "auditId": "aud-2",
+      "title": "Aptitude/safety training logging gaps for temporary fleet drivers",
+      "description": "Five driver logs missing current defensive vehicle handling qualification updates.",
+      "severity": "medium",
+      "status": "open",
+      "assignedToId": "user-log-head",
+      "dueDate": "2026-07-10T09:10:16.880Z"
+    }
+  ],
+  "badges": [
+    {
+      "id": "bd-eco-pioneer",
+      "title": "Eco Pioneer",
+      "description": "Awarded for completing environmental challenges and promoting waste reduction.",
+      "iconName": "Leaf",
+      "xpThreshold": 500,
+      "triggerType": "challenges_completed"
+    },
+    {
+      "id": "bd-carbon-buster",
+      "title": "Carbon Buster",
+      "description": "Authorized 5 or more approved carbon emission logs with accurate evidence uploads.",
+      "iconName": "FlameKindling",
+      "xpThreshold": 1000,
+      "triggerType": "carbon_logged"
+    },
+    {
+      "id": "bd-social-star",
+      "title": "Social Star",
+      "description": "Volunteered for 10 or more approved hours of corporate social responsibility.",
+      "iconName": "Users",
+      "xpThreshold": 800,
+      "triggerType": "csr_hours"
+    },
+    {
+      "id": "bd-compliance-hero",
+      "title": "Compliance Shield",
+      "description": "Successfully reviewed and acknowledged 100% of currently active governance policies.",
+      "iconName": "ShieldCheck",
+      "xpThreshold": 1200,
+      "triggerType": "policies_signed"
+    }
+  ],
+  "userBadges": [
+    {
+      "id": "ub-1",
+      "userId": "user-employee",
+      "badgeId": "bd-eco-pioneer",
+      "unlockedAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "ub-2",
+      "userId": "user-employee",
+      "badgeId": "bd-compliance-hero",
+      "unlockedAt": "2026-07-12T09:10:16.880Z"
+    }
+  ],
+  "rewards": [
+    {
+      "id": "rew-1",
+      "title": "Organic Canvas Coffee Tote",
+      "description": "Eco-sustainable sturdy tote bag displaying custom handcrafted EcoSphere logo embroidery.",
+      "costPoints": 200,
+      "stock": 45,
+      "active": true
+    },
+    {
+      "id": "rew-2",
+      "title": "Urban Tree Canopy Dedicated Planting",
+      "description": "We will sponsor and plant one direct broadleaf oak sapling in your name, with GPS coordinate maps sent to you.",
+      "costPoints": 500,
+      "stock": 100,
+      "active": true
+    },
+    {
+      "id": "rew-3",
+      "title": "Double Wall Vacuum Thermos (750ml)",
+      "description": "Premium insulated matte-black bottle keeping water ice-cold for 24 hours, eradicating disposable plastics.",
+      "costPoints": 800,
+      "stock": 12,
+      "active": true
+    },
+    {
+      "id": "rew-4",
+      "title": "Floating Carbon-Credit Floating Day off",
+      "description": "Trade your high-earned community points for one paid floating relaxation/wellbeing day.",
+      "costPoints": 2000,
+      "stock": 5,
+      "active": true
+    }
+  ],
+  "rewardRedemptions": [
+    {
+      "id": "rr-1",
+      "userId": "user-employee",
+      "rewardId": "rew-1",
+      "redeemedAt": "2026-06-19T18:30:00.000Z",
+      "status": "delivered"
+    },
+    {
+      "id": "rr-2",
+      "userId": "user-employee",
+      "rewardId": "rew-2",
+      "redeemedAt": "2026-07-12T09:10:16.880Z",
+      "status": "pending"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "not-1",
+      "userId": "user-employee",
+      "title": "Welcome to EcoSphere!",
+      "message": "Start participating in active sustainability challenges to earn XP and unlock beautiful achievements.",
+      "type": "system",
+      "read": false,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "not-2",
+      "userId": "user-employee",
+      "title": "Compliance Shield Badge Unlocked!",
+      "message": "Outstanding! You have acknowledged all core regulatory policies.",
+      "type": "badge",
+      "read": false,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    },
+    {
+      "id": "not-3",
+      "userId": "user-ops-head",
+      "title": "Overdue Compliance Warning",
+      "message": "Defensive safety log compliance gaps in Logistics are now flagged as Overdue.",
+      "type": "compliance",
+      "read": false,
+      "createdAt": "2026-07-12T09:10:16.880Z"
+    }
+  ],
+  "departmentScores": [
+    {
+      "id": "ds-dept-ops",
+      "departmentId": "dept-ops",
+      "environmentalScore": 82,
+      "socialScore": 36,
+      "governanceScore": 67,
+      "overallScore": 64,
+      "lastUpdated": "2026-07-12T09:10:16.891Z"
+    },
+    {
+      "id": "ds-dept-log",
+      "departmentId": "dept-log",
+      "environmentalScore": 83,
+      "socialScore": 0,
+      "governanceScore": 23,
+      "overallScore": 40,
+      "lastUpdated": "2026-07-12T09:10:16.891Z"
+    },
+    {
+      "id": "ds-dept-it",
+      "departmentId": "dept-it",
+      "environmentalScore": 94,
+      "socialScore": 75,
+      "governanceScore": 100,
+      "overallScore": 90,
+      "lastUpdated": "2026-07-12T09:10:16.891Z"
+    },
+    {
+      "id": "ds-dept-hr",
+      "departmentId": "dept-hr",
+      "environmentalScore": 84,
+      "socialScore": 75,
+      "governanceScore": 100,
+      "overallScore": 86,
+      "lastUpdated": "2026-07-12T09:10:16.891Z"
+    },
+    {
+      "id": "ds-dept-mfg",
+      "departmentId": "dept-mfg",
+      "environmentalScore": 88,
+      "socialScore": 75,
+      "governanceScore": 100,
+      "overallScore": 88,
+      "lastUpdated": "2026-07-12T09:10:16.891Z"
+    }
+  ],
+  "settings": {
+    "companyName": "EcoSphere Corp",
+    "weights": {
+      "environmental": 40,
+      "social": 30,
+      "governance": 30
+    },
+    "lastUpdated": "2026-07-12T09:10:16.879Z"
+  }
+}
