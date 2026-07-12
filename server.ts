@@ -5,6 +5,7 @@ import { createServer as createViteServer } from 'vite';
 import { db, hashPassword } from './server/db';
 import { GoogleGenAI } from '@google/genai';
 import { User, UserRole } from './src/types';
+import { initializeMySqlFromDump, testMysqlConnection } from './server/mysql';
 
 const TOKEN_SECRET = process.env.JWT_SECRET || 'ecosphere_jwt_secret_998182';
 
@@ -88,6 +89,17 @@ async function startServer() {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  const mysqlStatus = await initializeMySqlFromDump();
+
+  app.get('/api/db-status', (_req: Request, res: Response) => {
+    res.json(mysqlStatus);
+  });
+
+  app.get('/api/db-test', async (_req: Request, res: Response) => {
+    const result = await testMysqlConnection();
+    res.json(result);
+  });
 
   // --- 1. AUTHENTICATION ROUTERS ---
 
