@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { 
   Sparkles, FileDown, RefreshCw, Layers, Calendar, ClipboardList, 
-  HelpCircle, CheckCircle2, ChevronRight, Loader2, AlertCircle
+  HelpCircle, CheckCircle2, ChevronRight, Loader2, AlertCircle 
 } from 'lucide-react';
 import { Department, DashboardStats } from '../types';
 
@@ -79,7 +79,6 @@ export default function ReportsView({ stats }: ReportsViewProps) {
     setLoadingAI(true);
     setErrorAI('');
     setAiReport('');
-
     try {
       const token = localStorage.getItem('token');
       const response = await fetch('/api/reports/ai-summary', {
@@ -104,7 +103,6 @@ export default function ReportsView({ stats }: ReportsViewProps) {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
-
       setAiReport(data.report);
     } catch (err: any) {
       setErrorAI(err.message || 'AI generation failed');
@@ -114,7 +112,6 @@ export default function ReportsView({ stats }: ReportsViewProps) {
   };
 
   const handleDownloadPDF = () => {
-    // Complete production quality mock download of JSON report bundle
     const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify({
         generatedDate: new Date().toISOString(),
@@ -134,22 +131,22 @@ export default function ReportsView({ stats }: ReportsViewProps) {
   };
 
   return (
-    <div className="space-y-8" id="reports-tab-container">
+    <div className="space-y-6 lg:space-y-8" id="reports-tab-container">
       <div>
-        <h1 className="text-3xl font-light text-slate-900 uppercase tracking-tight">ESG Reports <span className="font-bold">Compiler</span></h1>
+        <h1 className="text-2xl lg:text-3xl font-light text-slate-900 uppercase tracking-tight">ESG Reports <span className="font-bold">Compiler</span></h1>
         <p className="text-xs text-slate-400 font-semibold tracking-wide uppercase mt-1">Compile and filter regulatory corporate statements, and generate C-suite Gemini AI analysis reports</p>
       </div>
 
-      {/* Report filters panel */}
-      <div className="bg-white border border-slate-200 rounded-none p-6 shadow-sm text-slate-900">
-        <h3 className="text-md font-bold text-slate-900 uppercase tracking-tight mb-4">Report Configurations</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {/* Report filters configuration panel */}
+      <div className="bg-white border border-slate-200 rounded-none p-5 lg:p-6 shadow-sm text-slate-900">
+        <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight mb-4">Report Configurations</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label className="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-2">DIVISION</label>
             <select
               value={selectedDeptId}
               onChange={(e) => setSelectedDeptId(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3.5 text-xs text-slate-900 focus:outline-none focus:border-slate-400 font-medium"
+              className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3.5 text-xs text-slate-900 focus:outline-none focus:border-slate-400 font-bold"
             >
               <option value="all">Enterprise-Wide (All Divisions)</option>
               {departments.map(d => (
@@ -157,7 +154,6 @@ export default function ReportsView({ stats }: ReportsViewProps) {
               ))}
             </select>
           </div>
-
           <div>
             <label className="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-2">START DATE</label>
             <input
@@ -167,7 +163,6 @@ export default function ReportsView({ stats }: ReportsViewProps) {
               className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3.5 text-xs text-slate-900 focus:outline-none focus:border-slate-400"
             />
           </div>
-
           <div>
             <label className="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-2">END DATE</label>
             <input
@@ -177,66 +172,63 @@ export default function ReportsView({ stats }: ReportsViewProps) {
               className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3.5 text-xs text-slate-900 focus:outline-none focus:border-slate-400"
             />
           </div>
-
-          <div className="flex items-end">
+          <div className="flex items-end sm:col-span-2 lg:col-span-1">
             <button
               onClick={handleDownloadPDF}
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3.5 rounded-none transition duration-150 flex items-center justify-center space-x-1.5 cursor-pointer uppercase tracking-wider"
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3.5 rounded-none transition duration-150 flex items-center justify-center space-x-1.5 cursor-pointer uppercase tracking-wider shadow-sm"
             >
-              <FileDown className="h-4.5 w-4.5" />
+              <FileDown className="h-4.5 w-4.5 shrink-0" />
               <span>Export Statement</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Main statistics cards from filters */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {/* Main calculation card block summaries */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <div className="bg-white border border-slate-200 rounded-none p-5 flex flex-col justify-between shadow-sm text-slate-900">
-          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Calculated ESG score</span>
-          <div className="text-4xl font-display font-extrabold text-slate-900 mt-4">{reportStats.overallScore} <span className="text-xs text-slate-400 font-bold uppercase tracking-wide">/ 100</span></div>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Calculated ESG Score</span>
+          <div className="text-3xl lg:text-4xl font-display font-extrabold text-slate-900 mt-4 truncate">
+            {reportStats.overallScore} <span className="text-xs text-slate-400 font-bold uppercase tracking-wide">/ 100</span>
+          </div>
           <div className="mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-wider">Weighted aggregate index</div>
         </div>
-
         <div className="bg-white border border-slate-200 rounded-none p-5 flex flex-col justify-between shadow-sm text-slate-900">
           <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Environmental (E) Index</span>
-          <div className="text-4xl font-display font-extrabold text-emerald-600 mt-4">{reportStats.environmentalScore}</div>
-          <div className="mt-3 text-[10px] text-emerald-700 font-bold uppercase tracking-wider font-mono">Carbon: {reportStats.carbonEmissions} Tons</div>
+          <div className="text-3xl lg:text-4xl font-display font-extrabold text-emerald-600 mt-4 truncate">{reportStats.environmentalScore}</div>
+          <div className="mt-3 text-[10px] text-emerald-700 font-bold uppercase tracking-wider font-mono truncate">Carbon: {reportStats.carbonEmissions} Tons</div>
         </div>
-
         <div className="bg-white border border-slate-200 rounded-none p-5 flex flex-col justify-between shadow-sm text-slate-900">
           <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Social (S) Index</span>
-          <div className="text-4xl font-display font-extrabold text-pink-600 mt-4">{reportStats.socialScore}</div>
-          <div className="mt-3 text-[10px] text-pink-700 font-bold uppercase tracking-wider">Participation: {stats.csrParticipationRate}%</div>
+          <div className="text-3xl lg:text-4xl font-display font-extrabold text-pink-600 mt-4 truncate">{reportStats.socialScore}</div>
+          <div className="mt-3 text-[10px] text-pink-700 font-bold uppercase tracking-wider truncate">Participation: {stats.csrParticipationRate}%</div>
         </div>
-
         <div className="bg-white border border-slate-200 rounded-none p-5 flex flex-col justify-between shadow-sm text-slate-900">
           <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Governance (G) Index</span>
-          <div className="text-4xl font-display font-extrabold text-sky-600 mt-4">{reportStats.governanceScore}</div>
-          <div className="mt-3 text-[10px] text-sky-700 font-bold uppercase tracking-wider font-mono">Open issues: {stats.openComplianceIssuesCount}</div>
+          <div className="text-3xl lg:text-4xl font-display font-extrabold text-sky-600 mt-4 truncate">{reportStats.governanceScore}</div>
+          <div className="mt-3 text-[10px] text-sky-700 font-bold uppercase tracking-wider font-mono truncate">Open Issues: {stats.openComplianceIssuesCount}</div>
         </div>
       </div>
 
-      {/* AI summaries section */}
+      {/* AI Engine synthesis section text boxes */}
       <div className="grid grid-cols-1 gap-6">
-        <div className="bg-white border border-slate-200 rounded-none p-6 shadow-sm text-slate-900 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 opacity-5">
+        <div className="bg-white border border-slate-200 rounded-none p-4 lg:p-6 shadow-sm text-slate-900 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-[0.03] hidden sm:block pointer-events-none">
             <Sparkles className="h-40 w-40 text-slate-900" />
           </div>
-
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-            <div>
-              <h3 className="font-display font-bold text-lg text-slate-900 flex items-center uppercase tracking-tight">
-                <Sparkles className="h-5 w-5 text-slate-900 mr-2" />
-                Gemini C-Suite AI ESG Insight generator
+          
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 relative z-10">
+            <div className="max-w-xl">
+              <h3 className="font-display font-bold text-base lg:text-lg text-slate-900 flex items-center uppercase tracking-tight">
+                <Sparkles className="h-5 w-5 text-slate-900 mr-2 shrink-0" />
+                Gemini C-Suite AI ESG Insight Generator
               </h3>
               <p className="text-xs text-slate-400 mt-0.5 font-semibold uppercase tracking-wider">Synthesize executive report, analyze metrics weaknesses, and get AI recommendations</p>
             </div>
-
             <button
               onClick={handleGenerateAIReport}
               disabled={loadingAI}
-              className="bg-slate-900 hover:bg-slate-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200 border border-transparent text-white text-xs font-bold px-5 py-3 rounded-none flex items-center space-x-1.5 transition duration-150 shadow-sm cursor-pointer uppercase tracking-wider"
+              className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200 border border-transparent text-white text-xs font-bold px-5 py-3.5 rounded-none flex items-center justify-center space-x-1.5 transition duration-150 shadow-sm cursor-pointer uppercase tracking-wider shrink-0"
             >
               {loadingAI ? (
                 <>
@@ -245,8 +237,8 @@ export default function ReportsView({ stats }: ReportsViewProps) {
                 </>
               ) : (
                 <>
-                  <Sparkles className="h-4 w-4 mr-1.5 text-emerald-400" />
-                  <span>Generate AI Executive Summary</span>
+                  <Sparkles className="h-4 w-4 mr-1.5 text-emerald-400 shrink-0" />
+                  <span>Generate AI Summary</span>
                 </>
               )}
             </button>
@@ -254,22 +246,24 @@ export default function ReportsView({ stats }: ReportsViewProps) {
 
           {errorAI && (
             <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-none text-xs flex items-center space-x-2 mb-6">
-              <AlertCircle className="h-4.5 w-4.5" />
+              <AlertCircle className="h-4.5 w-4.5 shrink-0" />
               <span>{errorAI}</span>
             </div>
           )}
 
-          {aiReport ? (
-            <div className="bg-slate-50 border border-slate-200 rounded-none p-6 text-slate-800 leading-relaxed text-sm max-w-none prose prose-slate font-sans markdown-body">
-              <ReactMarkdown>{aiReport}</ReactMarkdown>
-            </div>
-          ) : (
-            <div className="h-48 border border-dashed border-slate-200 rounded-none flex flex-col items-center justify-center text-center text-slate-400 space-y-2">
-              <Sparkles className="h-8 w-8 text-slate-300 animate-pulse" />
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-500">AI report dashboard completely vacant</p>
-              <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Click the generate button to parse filtered scoring logs into professional executive summaries.</p>
-            </div>
-          )}
+          <div className="relative z-10 w-full">
+            {aiReport ? (
+              <div className="bg-slate-50 border border-slate-200 rounded-none p-4 lg:p-6 text-slate-800 leading-relaxed text-sm prose prose-slate font-sans max-w-full overflow-x-auto">
+                <ReactMarkdown>{aiReport}</ReactMarkdown>
+              </div>
+            ) : (
+              <div className="h-48 border border-dashed border-slate-200 rounded-none flex flex-col items-center justify-center text-center p-4 text-slate-400 space-y-2">
+                <Sparkles className="h-8 w-8 text-slate-300 animate-pulse shrink-0" />
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">AI Report Dashboard Empty</p>
+                <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider max-w-sm">Click the generation trigger button above to feed active database tracks into structured C-suite assessments.</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

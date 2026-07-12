@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Trophy, Sparkles, Award, ShoppingBag, ListChecks, CheckCircle, 
-  ChevronRight, RefreshCw, AlertCircle, CheckCircle2, User as UserIcon, HelpCircle
+  ChevronRight, RefreshCw, AlertCircle, CheckCircle2, User as UserIcon, HelpCircle 
 } from 'lucide-react';
 import { Challenge, ChallengeParticipation, Badge, Reward, RewardRedemption, LeaderboardEntry, User } from '../types';
 
@@ -23,7 +23,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
 
   // Sliders for active challenge progress
   const [challengeProgresses, setChallengeProgresses] = useState<{ [key: string]: number }>({});
-  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -38,7 +37,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
     try {
       const token = localStorage.getItem('token');
       const headers = { 'Authorization': `Bearer ${token}` };
-
       const [chalRes, badgesRes, rewardsRes, leaderRes, userBadgesRes, redRes] = await Promise.all([
         fetch('/api/challenges', { headers }),
         fetch('/api/badges', { headers }),
@@ -101,7 +99,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
     setError('');
     setSuccess('');
     const progress = challengeProgresses[challengeId] || 0;
-
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`/api/challenges/${challengeId}/progress`, {
@@ -114,20 +111,17 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
-
       if (progress === 100) {
         setSuccess('Outstanding! Challenge progress saved. Submission is now pending Admin validation.');
       } else {
         setSuccess('Challenge progress updated.');
       }
       
-      // Since progress reaches 100, backend grants rewards instantly. Let's trigger a full user update
       const meResponse = await fetch('/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } });
       if (meResponse.ok) {
         const meData = await meResponse.json();
-        onUpdateUserLocal(meData); // update header and sidebar instantly!
+        onUpdateUserLocal(meData);
       }
-
       fetchGamificationData();
       onRefreshStats();
     } catch (err: any) {
@@ -138,7 +132,6 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
   const handleRedeemReward = async (rewardId: string) => {
     setError('');
     setSuccess('');
-
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`/api/rewards/${rewardId}/redeem`, {
@@ -147,16 +140,13 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
-
       setSuccess('Redemption order created successfully! Please visit standard collection zones.');
       
-      // Update local points
       const meResponse = await fetch('/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } });
       if (meResponse.ok) {
         const meData = await meResponse.json();
         onUpdateUserLocal(meData);
       }
-
       fetchGamificationData();
     } catch (err: any) {
       setError(err.message || 'Insufficient points or out of stock');
@@ -164,91 +154,97 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
   };
 
   return (
-    <div className="space-y-8" id="gamification-view-container">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-light text-slate-900 uppercase tracking-tight">Gamification & <span className="font-bold">Rewards</span></h1>
+    <div className="space-y-6 lg:space-y-8" id="gamification-view-container">
+      {/* Title Header Block */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="max-w-xl">
+          <h1 className="text-2xl lg:text-3xl font-light text-slate-900 uppercase tracking-tight">Gamification & <span className="font-bold">Rewards</span></h1>
           <p className="text-xs text-slate-400 font-semibold tracking-wide uppercase mt-1">Unlock badges, participate in green challenges, redeem eco-sustainable rewards, and top leaderboards</p>
         </div>
-
-        <div className="bg-slate-900 border border-slate-900 px-4 py-2 rounded-none flex items-center space-x-3 text-sm text-white shadow-sm">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Available Points Balance:</span>
+        <div className="w-full md:w-auto bg-slate-900 border border-slate-900 px-4 py-2.5 rounded-none flex items-center justify-between md:justify-end space-x-3 text-sm text-white shadow-sm shrink-0">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Available Balance:</span>
           <span className="font-mono font-bold text-teal-400 text-base">{user.balancePoints} PTS</span>
         </div>
       </div>
 
-      {/* Selector Sub Menu */}
-      <div className="flex border border-slate-200 space-x-1 p-1 bg-slate-50 rounded-none max-w-lg">
+      {/* Selector Sub Menu Navigation */}
+      <div className="flex border border-slate-200 p-1 bg-slate-50 rounded-none max-w-lg overflow-x-auto scrollbar-none gap-1 shadow-sm">
         <button
           onClick={() => { setActiveSub('challenges'); setError(''); setSuccess(''); }}
-          className={`flex-1 py-2 px-3 rounded-none text-xs font-bold tracking-wider uppercase transition-all ${
+          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-none text-[11px] font-bold tracking-wider uppercase transition-all whitespace-nowrap text-center ${
             activeSub === 'challenges' ? 'bg-slate-900 text-white' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
-          <ListChecks className="h-4 w-4 inline mr-1.5" />
+          <ListChecks className="h-3.5 w-3.5 inline mr-1" />
           Challenges
         </button>
         <button
           onClick={() => { setActiveSub('badges'); setError(''); setSuccess(''); }}
-          className={`flex-1 py-2 px-3 rounded-none text-xs font-bold tracking-wider uppercase transition-all ${
+          className={`flex-1 min-w-[85px] py-2 px-2.5 rounded-none text-[11px] font-bold tracking-wider uppercase transition-all whitespace-nowrap text-center ${
             activeSub === 'badges' ? 'bg-slate-900 text-white' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
-          <Award className="h-4 w-4 inline mr-1.5" />
+          <Award className="h-3.5 w-3.5 inline mr-1" />
           Badges
         </button>
         <button
           onClick={() => { setActiveSub('rewards'); setError(''); setSuccess(''); }}
-          className={`flex-1 py-2 px-3 rounded-none text-xs font-bold tracking-wider uppercase transition-all ${
+          className={`flex-1 min-w-[85px] py-2 px-2.5 rounded-none text-[11px] font-bold tracking-wider uppercase transition-all whitespace-nowrap text-center ${
             activeSub === 'rewards' ? 'bg-slate-900 text-white' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
-          <ShoppingBag className="h-4 w-4 inline mr-1.5" />
+          <ShoppingBag className="h-3.5 w-3.5 inline mr-1" />
           Bazaar
         </button>
         <button
           onClick={() => { setActiveSub('leaderboard'); setError(''); setSuccess(''); }}
-          className={`flex-1 py-2 px-3 rounded-none text-xs font-bold tracking-wider uppercase transition-all ${
+          className={`flex-1 min-w-[100px] py-2 px-2.5 rounded-none text-[11px] font-bold tracking-wider uppercase transition-all whitespace-nowrap text-center ${
             activeSub === 'leaderboard' ? 'bg-slate-900 text-white' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
-          <Trophy className="h-4 w-4 inline mr-1.5" />
+          <Trophy className="h-3.5 w-3.5 inline mr-1" />
           Leaderboard
         </button>
       </div>
 
+      {/* State feedback notices */}
       {error && (
-        <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-none text-xs flex items-center space-x-2">
-          <AlertCircle className="h-4.5 w-4.5" />
+        <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-xs font-semibold shadow-sm animate-fade-in">
+          <AlertCircle className="h-4.5 w-4.5 inline mr-2 align-middle shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-none text-xs flex items-center space-x-2">
-          <CheckCircle2 className="h-4.5 w-4.5 shrink-0" />
+        <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold shadow-sm animate-fade-in">
+          <CheckCircle2 className="h-4.5 w-4.5 inline mr-2 align-middle shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      {/* Tab: Challenges */}
+      {/* Tab Panel Contexts */}
       {activeSub === 'challenges' && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           {challenges.map((chal) => {
             const isJoined = joinedChallenges.some(p => p.challengeId === chal.id);
             const joinedRecord = joinedChallenges.find(p => p.challengeId === chal.id);
             const sliderVal = challengeProgresses[chal.id] !== undefined ? challengeProgresses[chal.id] : 0;
-
             return (
-              <div key={chal.id} className="bg-white border border-slate-200 rounded-none p-6 flex flex-col justify-between h-80 relative overflow-hidden shadow-sm text-slate-900">
-                <div className="absolute top-0 right-0 p-3 bg-slate-900 text-[9px] uppercase font-bold text-emerald-400 font-mono tracking-wider">
-                  {chal.category} Class
-                </div>
-
-                <div>
-                  <h4 className="font-display font-bold text-md text-slate-900 pr-20 leading-tight uppercase tracking-tight">{chal.title}</h4>
-                  <p className="text-xs text-slate-500 mt-2.5 line-clamp-3 leading-relaxed font-medium">{chal.description}</p>
+              <div key={chal.id} className="bg-white border border-slate-200 rounded-none p-5 lg:p-6 flex flex-col justify-between h-80 sm:h-85 md:h-80 shadow-sm text-slate-900 overflow-hidden">
+                <div className="space-y-3.5">
+                  <div className="flex justify-between items-start gap-3">
+                    <h4 className="font-display font-bold text-sm lg:text-base text-slate-900 leading-tight uppercase tracking-tight flex-1 line-clamp-2">
+                      {chal.title}
+                    </h4>
+                    <span className="shrink-0 px-2 py-0.5 bg-slate-900 text-[9px] uppercase font-bold text-emerald-400 font-mono tracking-wider whitespace-nowrap">
+                      {chal.category} Class
+                    </span>
+                  </div>
                   
-                  <div className="mt-4 flex items-center space-x-3.5">
+                  <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed font-medium">
+                    {chal.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 pt-1">
                     <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-none font-mono uppercase tracking-wider">
                       +{chal.xpReward} XP
                     </span>
@@ -258,12 +254,12 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
                   </div>
                 </div>
 
-                <div className="mt-6 pt-5 border-t border-slate-200">
+                <div className="mt-5 pt-4 border-t border-slate-200">
                   {isJoined ? (
                     joinedRecord?.status === 'under_review' ? (
                       <div className="text-center text-xs text-slate-500 font-bold py-2.5 bg-slate-50 border border-slate-200 rounded-none flex items-center justify-center space-x-1.5 uppercase tracking-wider">
                         <CheckCircle className="h-4 w-4 text-emerald-600 animate-pulse" />
-                        <span>Awaiting Admin Approval</span>
+                        <span>Awaiting Approval</span>
                       </div>
                     ) : joinedRecord?.status === 'completed' ? (
                       <div className="text-center text-xs text-emerald-700 font-bold py-2.5 bg-emerald-50 border border-emerald-200 rounded-none flex items-center justify-center space-x-1.5 uppercase tracking-wider">
@@ -276,18 +272,18 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
                           <span>Set Progress:</span>
                           <span className="font-mono text-slate-900 font-bold">{sliderVal}%</span>
                         </div>
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-2">
                           <input
                             type="range"
                             min="0"
                             max="100"
                             value={sliderVal}
                             onChange={(e) => handleUpdateProgressSlider(chal.id, Number(e.target.value))}
-                            className="flex-1 accent-slate-900 h-1.5 bg-slate-100 rounded-none cursor-pointer"
+                            className="flex-1 accent-slate-900 h-1.5 bg-slate-100 rounded-none cursor-pointer min-w-0"
                           />
                           <button
                             onClick={() => handleSaveProgress(chal.id)}
-                            className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold rounded-none uppercase tracking-wider transition"
+                            className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold rounded-none uppercase tracking-wider transition shrink-0"
                           >
                             Save
                           </button>
@@ -297,9 +293,9 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
                   ) : (
                     <button
                       onClick={() => handleJoinChallenge(chal.id)}
-                      className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-none transition uppercase tracking-wider flex items-center justify-center space-x-1"
+                      className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-none transition uppercase tracking-wider flex items-center justify-center space-x-1 cursor-pointer"
                     >
-                      <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+                      <Sparkles className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
                       <span>Accept Challenge</span>
                     </button>
                   )}
@@ -310,23 +306,20 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
         </div>
       )}
 
-      {/* Tab: Unlocked Badges */}
       {activeSub === 'badges' && (
-        <div className="bg-white border border-slate-200 rounded-none p-6 shadow-sm text-slate-900">
-          <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Unlocked Corporate Badges Trophy room</h3>
+        <div className="bg-white border border-slate-200 rounded-none p-5 lg:p-6 shadow-sm text-slate-900">
+          <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight mb-6">Unlocked Corporate Badges</h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {badges.map((badge) => {
               const isUnlocked = unlockedBadges.some(ub => ub.badgeId === badge.id);
-              const unlockRecord = unlockedBadges.find(ub => ub.badgeId === badge.id);
-
               return (
                 <div 
-                  key={badge.id} 
-                  className={`border rounded-none p-6 flex flex-col items-center justify-between text-center transition-all h-64 ${
+                  key={badge.id}
+                  className={`border rounded-none p-5 flex flex-col items-center justify-between text-center transition-all h-64 ${
                     isUnlocked 
                       ? 'bg-slate-50 border-amber-300 shadow-sm' 
-                      : 'bg-slate-50/50 border-slate-200 opacity-50'
+                      : 'bg-slate-50/50 border-slate-200 opacity-55'
                   }`}
                 >
                   <div className={`p-4 rounded-none border ${
@@ -336,16 +329,14 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
                   }`}>
                     <Award className="h-8 w-8" />
                   </div>
-
-                  <div className="space-y-1.5 mt-4">
-                    <h4 className="text-sm font-bold text-slate-900 leading-tight uppercase tracking-tight">{badge.title}</h4>
-                    <p className="text-[11px] text-slate-500 leading-normal line-clamp-3 font-medium">{badge.description}</p>
+                  <div className="space-y-1.5 mt-4 min-w-0 w-full">
+                    <h4 className="text-sm font-bold text-slate-900 leading-tight uppercase tracking-tight truncate">{badge.title}</h4>
+                    <p className="text-[11px] text-slate-500 leading-normal line-clamp-2 font-medium">{badge.description}</p>
                   </div>
-
                   <div className="mt-4 w-full">
                     {isUnlocked ? (
                       <div className="text-[9px] text-amber-700 font-mono font-bold uppercase tracking-wider bg-amber-50 px-2 py-1 rounded-none border border-amber-200">
-                        🏆 Unlocked YTD
+                        Unlocked YTD
                       </div>
                     ) : (
                       <div className="text-[9px] text-slate-400 font-mono font-bold uppercase tracking-wider">
@@ -360,33 +351,30 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
         </div>
       )}
 
-      {/* Tab: Rewards Bazaar */}
       {activeSub === 'rewards' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="lg:col-span-2 space-y-4 lg:space-y-6">
             <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight">Carbon-Offset Rewards Bazaar</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
               {rewards.map((reward) => (
-                <div key={reward.id} className="bg-white border border-slate-200 rounded-none p-6 flex flex-col justify-between h-56 relative overflow-hidden shadow-sm text-slate-900">
+                <div key={reward.id} className="bg-white border border-slate-200 rounded-none p-5 lg:p-6 flex flex-col justify-between h-56 relative overflow-hidden shadow-sm text-slate-900">
                   <div>
-                    <div className="flex justify-between items-start mb-3 border-b border-slate-50 pb-2">
-                      <span className="px-2 py-0.5 rounded-none bg-teal-50 text-teal-700 border border-teal-200 text-[10px] font-mono font-bold uppercase tracking-wider">
+                    <div className="flex justify-between items-center mb-3 border-b border-slate-50 pb-2 gap-2">
+                      <span className="px-2 py-0.5 rounded-none bg-teal-50 text-teal-700 border border-teal-200 text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap">
                         {reward.costPoints} points
                       </span>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-mono">Stock: {reward.stock} left</span>
+                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-mono whitespace-nowrap">Stock: {reward.stock}</span>
                     </div>
-
-                    <h4 className="font-display font-bold text-sm text-slate-900 uppercase tracking-tight">{reward.title}</h4>
-                    <p className="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed font-medium">{reward.description}</p>
+                    <h4 className="font-display font-bold text-sm text-slate-900 uppercase tracking-tight truncate">{reward.title}</h4>
+                    <p className="text-xs text-slate-500 mt-2 line-clamp-2 leading-relaxed font-medium">{reward.description}</p>
                   </div>
-
-                  <div className="mt-5 pt-4 border-t border-slate-200">
+                  <div className="mt-4 pt-3 border-t border-slate-200">
                     <button
                       onClick={() => handleRedeemReward(reward.id)}
                       disabled={user.balancePoints < reward.costPoints || reward.stock <= 0}
-                      className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200 border border-transparent text-white text-xs font-bold rounded-none transition uppercase tracking-wider cursor-pointer"
+                      className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200 border border-transparent text-white text-xs font-bold rounded-none transition uppercase tracking-wider cursor-pointer text-center truncate px-2"
                     >
-                      {reward.stock <= 0 ? 'Out of stock' : user.balancePoints < reward.costPoints ? 'Insufficient points balance' : 'Redeem Eco-Reward'}
+                      {reward.stock <= 0 ? 'Out of stock' : user.balancePoints < reward.costPoints ? 'Insufficient points' : 'Redeem Eco-Reward'}
                     </button>
                   </div>
                 </div>
@@ -394,19 +382,18 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
             </div>
           </div>
 
-          {/* Past Redemptions Drawer */}
-          <div className="bg-white border border-slate-200 rounded-none p-6 h-fit shadow-sm text-slate-900">
-            <h3 className="font-display font-bold text-md text-slate-900 mb-6 uppercase tracking-tight">Your Redemption logs</h3>
-            <div className="space-y-4">
+          <div className="bg-white border border-slate-200 rounded-none p-5 lg:p-6 h-fit shadow-sm text-slate-900">
+            <h3 className="font-display font-bold text-md text-slate-900 mb-4 uppercase tracking-tight">Your Redemption logs</h3>
+            <div className="space-y-3">
               {redemptions.map((red) => {
                 const rew = rewards.find(r => r.id === red.rewardId);
                 return (
-                  <div key={red.id} className="p-3 bg-slate-50 border border-slate-200 rounded-none flex items-center justify-between">
-                    <div>
-                      <h4 className="text-xs font-bold text-slate-900 uppercase tracking-tight">{rew ? rew.title : 'Redemption order'}</h4>
+                  <div key={red.id} className="p-3 bg-slate-50 border border-slate-200 rounded-none flex items-center justify-between gap-3 text-xs">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-bold text-slate-900 uppercase tracking-tight truncate">{rew ? rew.title : 'Redemption order'}</h4>
                       <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider font-mono mt-0.5">{new Date(red.redeemedAt).toLocaleDateString()}</p>
                     </div>
-                    <span className={`px-2 py-0.5 rounded-none text-[9px] font-bold uppercase border ${
+                    <span className={`shrink-0 px-2 py-0.5 rounded-none text-[9px] font-bold uppercase border whitespace-nowrap ${
                       red.status === 'delivered' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
                       red.status === 'cancelled' ? 'bg-red-50 text-red-700 border-red-200' :
                       'bg-slate-100 text-slate-500 border-slate-200'
@@ -424,61 +411,62 @@ export default function GamificationView({ user, onRefreshStats, onUpdateUserLoc
         </div>
       )}
 
-      {/* Tab: Leaderboard */}
       {activeSub === 'leaderboard' && (
-        <div className="bg-white border border-slate-200 rounded-none p-6 shadow-sm text-slate-900">
-          <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
+        <div className="bg-white border border-slate-200 rounded-none p-4 lg:p-6 shadow-sm text-slate-900 overflow-hidden">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
             <div>
               <h3 className="font-display font-bold text-lg text-slate-900 uppercase tracking-tight">Global Sustainability Hall of Fame</h3>
               <p className="text-xs text-slate-400 mt-0.5 font-bold uppercase tracking-wider">Corporate ranking computed directly via aggregates XP levels</p>
             </div>
-            <button onClick={fetchGamificationData} className="p-1.5 hover:bg-slate-100 rounded text-slate-500">
+            <button onClick={fetchGamificationData} className="p-1.5 hover:bg-slate-100 rounded text-slate-500 self-end sm:self-center transition-colors">
               <RefreshCw className="h-4 w-4" />
             </button>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-slate-200 text-[10px] text-slate-400 uppercase tracking-widest font-extrabold">
-                  <th className="pb-3 pl-3">Rank</th>
-                  <th className="pb-3">Sustainability Champion</th>
-                  <th className="pb-3">Corporate Division</th>
-                  <th className="pb-3 text-center">Achievements</th>
-                  <th className="pb-3 text-right pr-3">Aggregated XP</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 text-xs text-slate-900 font-medium">
-                {leaderboard.map((entry) => (
-                  <tr key={entry.userId} className={`hover:bg-slate-50/60 ${entry.userId === user.id ? 'bg-emerald-50/40 border-l-2 border-l-emerald-600' : ''}`}>
-                    <td className="py-3.5 pl-3">
-                      <span className={`font-mono font-bold text-xs inline-flex items-center justify-center h-6 w-6 rounded-none border ${
-                        entry.rank === 1 ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                        entry.rank === 2 ? 'bg-slate-100 text-slate-600 border-slate-200' :
-                        entry.rank === 3 ? 'bg-orange-50 text-orange-700 border-orange-200' :
-                        'bg-slate-50 text-slate-500 border-slate-100'
-                      }`}>
-                        #{entry.rank}
-                      </span>
-                    </td>
-                    <td className="py-3.5">
-                      <div className="flex items-center space-x-2.5">
-                        <span className="h-8 w-8 rounded-none bg-slate-900 flex items-center justify-center font-bold text-[11px] text-white">
-                          {entry.userName.charAt(0)}
-                        </span>
-                        <div>
-                          <div className="font-semibold text-slate-900 uppercase tracking-tight">{entry.userName}</div>
-                          <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">{entry.userRole}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-3.5 text-slate-500 uppercase tracking-tight font-semibold text-[11px]">{entry.departmentName}</td>
-                    <td className="py-3.5 text-center font-semibold font-mono text-amber-700 uppercase tracking-wide">🏆 {entry.badgesCount} badges</td>
-                    <td className="py-3.5 text-right pr-3 font-mono font-bold text-emerald-700">{entry.xp} XP</td>
+          <div className="overflow-x-auto -mx-4 lg:mx-0">
+            <div className="inline-block min-w-full align-middle px-4 lg:p-0">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-200 text-[10px] text-slate-400 uppercase tracking-widest font-extrabold">
+                    <th className="pb-3 pr-2">Rank</th>
+                    <th className="pb-3 px-2">Sustainability Champion</th>
+                    <th className="pb-3 px-2">Corporate Division</th>
+                    <th className="pb-3 text-center px-2">Achievements</th>
+                    <th className="pb-3 text-right">Aggregated XP</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-xs text-slate-900 font-medium">
+                  {leaderboard.map((entry) => (
+                    <tr key={entry.userId} className={`hover:bg-slate-50/60 ${entry.userId === user.id ? 'bg-emerald-50/40 border-l-2 border-l-emerald-600' : ''}`}>
+                      <td className="py-3.5 pr-2 whitespace-nowrap">
+                        <span className={`font-mono font-bold text-xs inline-flex items-center justify-center h-6 w-6 rounded-none border ${
+                          entry.rank === 1 ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                          entry.rank === 2 ? 'bg-slate-100 text-slate-600 border-slate-200' :
+                          entry.rank === 3 ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                          'bg-slate-50 text-slate-500 border-slate-100'
+                        }`}>
+                          #{entry.rank}
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-2 whitespace-nowrap">
+                        <div className="flex items-center space-x-2.5">
+                          <span className="h-8 w-8 rounded-none bg-slate-900 flex items-center justify-center font-bold text-[11px] text-white shrink-0">
+                            {entry.userName.charAt(0)}
+                          </span>
+                          <div className="min-w-0">
+                            <div className="font-semibold text-slate-900 uppercase tracking-tight truncate max-w-[120px] sm:max-w-none">{entry.userName}</div>
+                            <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">{entry.userRole}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-3.5 px-2 text-slate-500 uppercase tracking-tight font-semibold text-[11px] whitespace-nowrap">{entry.departmentName}</td>
+                      <td className="py-3.5 text-center font-semibold font-mono text-amber-700 uppercase tracking-wide px-2 whitespace-nowrap">{entry.badgesCount} badges</td>
+                      <td className="py-3.5 text-right font-mono font-bold text-emerald-700 whitespace-nowrap">{entry.xp} XP</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
