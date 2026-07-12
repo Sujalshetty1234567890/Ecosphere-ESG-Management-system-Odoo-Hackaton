@@ -54,6 +54,28 @@
       "balancePoints": 250,
       "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
       "createdAt": "2026-07-12T07:00:38.314Z"
+    },
+    {
+      "id": "user-1783846037939",
+      "email": "taklasujal@ecosphere.com",
+      "name": "takla sujal",
+      "role": "auditor",
+      "departmentId": null,
+      "xp": 0,
+      "balancePoints": 0,
+      "passwordHash": "e3c441709d3b27922cc3dccafa43dc7c80b7ed865a5e7716660c2d9e011f6e08",
+      "createdAt": "2026-07-12T08:47:17.939Z"
+    },
+    {
+      "id": "user-1783846075889",
+      "email": "aaa@eco.com",
+      "name": "asdj",
+      "role": "employee",
+      "departmentId": "dept-ops",
+      "xp": 0,
+      "balancePoints": 0,
+      "passwordHash": "9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0",
+      "createdAt": "2026-07-12T08:47:55.889Z"
     }
   ],
   "departments": [
@@ -767,6 +789,45 @@
       "recordedById": "user-log-head",
       "description": "Fleet refuel operational log",
       "status": "approved"
+    },
+    {
+      "id": "tx-1783852640225",
+      "date": "2026-07-12",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 329043,
+      "calculatedEmissions": 138.198,
+      "recordedById": "user-1783846075889",
+      "description": "sad sad",
+      "proofUrl": "https://www.oracle.com/mysql/free/",
+      "status": "pending"
+    },
+    {
+      "id": "tx-1783852705178",
+      "date": "2026-07-12",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-diesel",
+      "quantity": 100000000,
+      "calculatedEmissions": 268000,
+      "recordedById": "user-1783846075889",
+      "description": "wswi",
+      "proofUrl": "https://www.oracle.com/mysql/free/",
+      "status": "pending"
+    },
+    {
+      "id": "tx-1783852728134",
+      "date": "2026-07-12",
+      "departmentId": "dept-ops",
+      "categoryId": "cat-scope1",
+      "emissionFactorId": "ef-electricity",
+      "quantity": 789776,
+      "calculatedEmissions": 331.706,
+      "recordedById": "user-1783846075889",
+      "description": "yg",
+      "proofUrl": "https://www.oracle.com/mysql/free/",
+      "status": "pending"
     }
   ],
   "environmentalGoals": [
@@ -1221,10 +1282,10 @@
       "id": "ds-dept-ops",
       "departmentId": "dept-ops",
       "environmentalScore": 83,
-      "socialScore": 36,
-      "governanceScore": 67,
-      "overallScore": 64,
-      "lastUpdated": "2026-07-12T07:46:03.855Z"
+      "socialScore": 24,
+      "governanceScore": 44,
+      "overallScore": 54,
+      "lastUpdated": "2026-07-12T10:38:48.134Z"
     },
     {
       "id": "ds-dept-log",
@@ -1233,7 +1294,7 @@
       "socialScore": 0,
       "governanceScore": 23,
       "overallScore": 40,
-      "lastUpdated": "2026-07-12T07:46:03.855Z"
+      "lastUpdated": "2026-07-12T10:38:48.134Z"
     },
     {
       "id": "ds-dept-it",
@@ -1242,7 +1303,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 90,
-      "lastUpdated": "2026-07-12T07:46:03.855Z"
+      "lastUpdated": "2026-07-12T10:38:48.134Z"
     },
     {
       "id": "ds-dept-hr",
@@ -1251,7 +1312,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 86,
-      "lastUpdated": "2026-07-12T07:46:03.855Z"
+      "lastUpdated": "2026-07-12T10:38:48.134Z"
     },
     {
       "id": "ds-dept-mfg",
@@ -1260,7 +1321,7 @@
       "socialScore": 75,
       "governanceScore": 100,
       "overallScore": 88,
-      "lastUpdated": "2026-07-12T07:46:03.855Z"
+      "lastUpdated": "2026-07-12T10:38:48.134Z"
     }
   ],
   "settings": {

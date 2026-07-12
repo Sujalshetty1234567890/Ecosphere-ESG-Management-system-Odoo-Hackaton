@@ -15,6 +15,7 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
   const [factors, setFactors] = useState<EmissionFactor[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [goals, setGoals] = useState<EnvironmentalGoal[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
 
   // Form State
   const [showLogModal, setShowLogModal] = useState(false);
@@ -22,6 +23,7 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
     date: new Date().toISOString().split('T')[0],
     departmentId: '',
     emissionFactorId: '',
+    categoryId: '',
     quantity: 0,
     description: '',
     proofUrl: ''
@@ -41,11 +43,12 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
       const token = localStorage.getItem('token');
       const headers = { 'Authorization': `Bearer ${token}` };
 
-      const [txsRes, facsRes, deptsRes, goalsRes] = await Promise.all([
+      const [txsRes, facsRes, deptsRes, goalsRes, catsRes] = await Promise.all([
         fetch('/api/carbon-transactions', { headers }),
         fetch('/api/emission-factors', { headers }),
         fetch('/api/departments', { headers }),
-        fetch('/api/goals', { headers })
+        fetch('/api/goals', { headers }),
+        fetch('/api/categories', { headers })
       ]);
 
       if (txsRes.ok) setTransactions(await txsRes.json());
@@ -61,6 +64,14 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
         setDepartments(depts);
         if (depts.length > 0) {
           setFormData(prev => ({ ...prev, departmentId: depts[0].id }));
+        }
+      }
+      if (catsRes.ok) {
+        const allCats = await catsRes.json();
+        const envCats = allCats.filter((c: any) => c.type === 'environmental');
+        setCategories(envCats);
+        if (envCats.length > 0) {
+          setFormData(prev => ({ ...prev, categoryId: envCats[0].id }));
         }
       }
       if (goalsRes.ok) setGoals(await goalsRes.json());
@@ -335,6 +346,19 @@ export default function EnvironmentView({ userId, userRole }: EnvironmentViewPro
                     ))}
                   </select>
                 </div>
+              </div>
+              
+              <div>
+                <label className="block text-[10px] text-slate-400 font-bold mb-2 uppercase tracking-wider">EMISSIONS CATEGORY</label>
+                <select
+                  value={formData.categoryId}
+                  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-none py-2.5 px-3 text-xs text-slate-900 focus:outline-none focus:border-slate-400 font-bold mb-3"
+                >
+                  {categories.map(c => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
               </div>
 
               <div>
