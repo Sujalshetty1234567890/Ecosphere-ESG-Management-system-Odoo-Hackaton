@@ -1,0 +1,6 @@
+{
+  "name": "EcoSphere ESG Management Platform",
+  "description": "An enterprise-grade ESG Management Platform to track carbon emissions, sustainability goals, CSR activities, compliance issues, governance, and gamified sustainability metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
